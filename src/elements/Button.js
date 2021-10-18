@@ -11,10 +11,12 @@ const Button = (props) => {
     width,
     padding,
     cursor,
-    //아영 - 배경컬러 추가
-    bg,
     //진식 - 폰트컬러 추가
     color,
+    //아영 - 배경컬러,radius,size 추가
+    bg,
+    borderRadius,
+    size,
   } = props;
 
   if (is_float) {
@@ -30,10 +32,12 @@ const Button = (props) => {
     width: width,
     padding: padding,
     cursor: cursor,
-    //아영 - 배경컬러 추가
-    bg: bg,
     //진식 - 폰트컬러 추가
     color: color,
+    //아영 - 배경컬러,radius,size 추가
+    bg: bg,
+    borderRadius: borderRadius,
+    size: size,
   };
 
   return (
@@ -53,8 +57,10 @@ Button.defaultProps = {
   margin: false,
   width: "100%",
   padding: "12px 0px",
-  //아영 - 배경컬러 추가
+  //아영 - 배경컬러,radius,size 추가
   bg: false,
+  borderRadius: false,
+  size: false,
 };
 
 const ElButton = styled.button`
@@ -68,8 +74,14 @@ const ElButton = styled.button`
   border: none;
   ${(props) => (props.margin ? `margin: ${props.margin};` : "")}
   cursor: pointer;
-  font-family: "Gowun Batang", serif;
+  //font-family: "Gowun Batang", serif;
   font-weight: bold;
+  //아영 - radius,size 추가
+  ${(props) =>
+    props.borderradius
+      ? `border-radius: ${props.borderradius};`
+      : "border-radius: 3px;"}
+  font-size: ${(props) => props.size};
 `;
 
 const FloatButton = styled.button`

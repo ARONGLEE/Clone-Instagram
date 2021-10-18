@@ -12,6 +12,13 @@ const Input = (props) => {
     value,
     is_submit,
     onSubmit,
+    //아영 - width, margin, padding, borderRadius, height, color 추가
+    width,
+    margin,
+    padding,
+    borderRadius,
+    height,
+    color,
   } = props;
 
   if (multiLine) {
@@ -27,12 +34,24 @@ const Input = (props) => {
       </Grid>
     );
   }
+  //아영 - width, margin, padding, borderRadius, height, color 추가
+  const styles = {
+    width: width,
+    margin: margin,
+    padding: padding,
+    borderRadius: borderRadius,
+    height: height,
+    color: color,
+  };
+
   return (
     <React.Fragment>
       <Grid>
         {label && <Text margin="0px">{label}</Text>}
         {is_submit ? (
           <ElInput
+            //아영 - {...styles} 추가
+            {...styles}
             type={type}
             placeholder={placeholder}
             onChange={_onChange}
@@ -44,7 +63,12 @@ const Input = (props) => {
             }}
           />
         ) : (
-          <ElInput type={type} placeholder={placeholder} onChange={_onChange} />
+          <ElInput
+            {...styles}
+            type={type}
+            placeholder={placeholder}
+            onChange={_onChange}
+          />
         )}
       </Grid>
     </React.Fragment>
@@ -61,13 +85,27 @@ Input.defaultProps = {
   multiLine: false,
   is_submit: false,
   onSubmit: () => {},
+  //아영 - width, margin, padding, borderRadius, height, color 추가
+  width: false,
+  margin: false,
+  padding: false,
+  borderRadius: false,
+  height: false,
+  color: false,
 };
 
 const ElInput = styled.input`
-  border: 1px solid #212121;
-  width: 100%;
-  padding: 12px 4px;
   box-sizing: border-box;
+  // 아영 - 수정 & 추가
+  border: 1px solid #dbdbdb;
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
+  padding: ${(props) => props.padding};
+  ${(props) =>
+    props.borderRadius
+      ? `border-radius: ${props.borderRadius};`
+      : "border-radius: 3px;"}
+  color: ${(props) => props.color};
 `;
 
 const ElTextarea = styled.textarea`
