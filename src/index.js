@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-import React from "react";
-import ReactDOM from "react-dom";
-import "./index.css";
-import App from "./shared/App";
-import reportWebVitals from "./reportWebVitals";
-=======
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './shared/App';
 import reportWebVitals from './reportWebVitals';
->>>>>>> d47150d (초반작성)
 
 ReactDOM.render(
   <React.StrictMode>
