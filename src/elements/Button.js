@@ -2,8 +2,18 @@ import React from "react";
 import styled from "styled-components";
 
 const Button = (props) => {
-  const { text, _onClick, is_float, children, margin, width, padding, cursor } =
-    props;
+  const {
+    text,
+    _onClick,
+    is_float,
+    children,
+    margin,
+    width,
+    padding,
+    cursor,
+    //아영 - 배경컬러 추가
+    bg,
+  } = props;
 
   if (is_float) {
     return (
@@ -18,6 +28,8 @@ const Button = (props) => {
     width: width,
     padding: padding,
     cursor: cursor,
+    //아영 - 배경컬러 추가
+    bg: bg,
   };
 
   return (
@@ -37,11 +49,14 @@ Button.defaultProps = {
   margin: false,
   width: "100%",
   padding: "12px 0px",
+  //아영 - 배경컬러 추가
+  bg: false,
 };
 
 const ElButton = styled.button`
   width: ${(props) => props.width};
-  background-color: #486d87;
+  //아영 - 배경컬러 추가
+  background-color: ${(props) => props.bg};
   color: #ffffff;
   padding: ${(props) => props.padding};
   box-sizing: border-box;
