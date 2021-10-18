@@ -13,6 +13,8 @@ const Button = (props) => {
     cursor,
     //아영 - 배경컬러 추가
     bg,
+    //진식 - 폰트컬러 추가
+    color,
   } = props;
 
   if (is_float) {
@@ -30,6 +32,8 @@ const Button = (props) => {
     cursor: cursor,
     //아영 - 배경컬러 추가
     bg: bg,
+    //진식 - 폰트컬러 추가
+    color: color,
   };
 
   return (
@@ -57,7 +61,8 @@ const ElButton = styled.button`
   width: ${(props) => props.width};
   //아영 - 배경컬러 추가
   background-color: ${(props) => props.bg};
-  color: #ffffff;
+  //진식 - 폰트컬러 추가
+  color: ${(props) => props.color};
   padding: ${(props) => props.padding};
   box-sizing: border-box;
   border: none;

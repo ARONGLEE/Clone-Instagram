@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Button, Grid, Image, Text } from "../elements";
 
 import IconButton from '@mui/material/IconButton';
-import Stack from '@mui/material/Stack';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import SendIcon from '@mui/icons-material/Send';
@@ -20,7 +19,7 @@ const Post = (props) => {
 						<Image shape="circle" size="25" margin="0px" src={props.src} />
 						<Text bold size="10px" margin="6px">{props.user_info.user_name}</Text>
 					</Grid>
-					<Button width="20px" padding="0px" style={{backgroundColor: "#ffffff"}}>···</Button>
+					<Button width="20px" padding="0px" bg="#fff" color="#000">···</Button>
 				</Grid>
 
 				{/* 사진 */}
