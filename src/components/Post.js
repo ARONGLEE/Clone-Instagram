@@ -33,7 +33,6 @@ const Post = (props) => {
 						className="openModalBtn" _onClick={()=>{setModalOpen(true)}}>
 							···
 					</Button>
-					{/* <Modal></Modal> */}
 				</Grid>
 
 				{/* 사진 */}
@@ -74,7 +73,7 @@ const Post = (props) => {
 				</Div>
 
 				{/* 댓글 */}
-				{/* <CommentWrite /> */}
+				<CommentWrite />
 				
 			</Border>
 
