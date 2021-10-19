@@ -23,6 +23,3 @@ yarn-debug.log*
 yarn-error.log*
 
 # 올리지 말 파일
-/src/shared
-/src/modules
-/src/index.js
