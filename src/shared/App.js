@@ -1,8 +1,10 @@
 import React from "react";
 
 import { BrowserRouter, Route } from "react-router-dom";
-import Post from "../components/Post";
 import PostList from "../pages/PostList";
+import Login from "../pages/Login"
+import SignUp from "../pages/SignUp"
+import Modal from "../components/Modal"
 
 function App() {
   return (
@@ -10,7 +12,8 @@ function App() {
       <React.Fragment>
         <BrowserRouter>
           <Route path="/" exact component={PostList} />
-          <Route path="/post" exact component={Post} />
+          <Route path="/login" exact component={Login} />
+          <Route path="/signup" exact component={SignUp} />
         </BrowserRouter>
       </React.Fragment>
     </React.Fragment>

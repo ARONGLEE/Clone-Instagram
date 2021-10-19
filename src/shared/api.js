@@ -43,8 +43,9 @@ export const apis = {
   detailPost: (postId) => api.get(""),
 
   // Like
-
-  // Comments
-
+   like: (postId) => api.post("api/likes/{postId}", {
+    param : postId
+   })
+    
   // Follow
 };
