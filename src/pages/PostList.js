@@ -1,7 +1,15 @@
 import React from "react";
+import Post from "../components/Post";
 
 const PostList = (props) => {
-  return <React.Fragment>메인페이지</React.Fragment>;
+
+  return (
+    <React.Fragment>
+      <Post />
+      <Post />
+      <Post />
+    </React.Fragment>
+  )
 };
 
 export default PostList;
