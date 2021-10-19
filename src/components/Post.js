@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { Button, Grid, Image, Text } from "../elements";
 import Heart from "./Heart";
 import Modal from "./Modal";
+import CommentWrite from "./CommentWrite";
 
 import IconButton from '@mui/material/IconButton';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -71,6 +72,9 @@ const Post = (props) => {
 					<Text bold size="10px" margin="8px 8px" >{props.user_info.user_name}</Text> 
 					<Text bold size="10px" margin="8px 8px" >{props.contents}</Text>
 				</Div>
+
+				{/* 댓글 */}
+				{/* <CommentWrite /> */}
 				
 			</Border>
 
