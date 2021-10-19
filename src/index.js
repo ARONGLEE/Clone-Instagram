@@ -4,10 +4,17 @@ import './index.css';
 import App from './shared/App';
 import reportWebVitals from './reportWebVitals';
 
+import {Provider} from 'react-redux'
+import store from './redux/configureStore'
+import {ConnectedRouter} from 'connected-react-router';
+import { history } from './redux/configureStore';
+
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
+    <ConnectedRouter history={history}>
     <App />
-  </React.StrictMode>,
+    </ConnectedRouter>
+  </Provider>,
   document.getElementById("root")
 );
 

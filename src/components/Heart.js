@@ -6,7 +6,7 @@ import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 
 const Heart = (props) => {
 
-	const heart_url = props.is_like ? <FavoriteIcon /> : <FavoriteBorderIcon />
+	const heart_url = props.is_like ? <FavoriteBorderIcon fontSize="inherit" color="secondary"/> : <FavoriteIcon fontSize="inherit" /> 
 
 	return (
 		<React.Fragment>

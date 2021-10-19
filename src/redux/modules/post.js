@@ -1,5 +1,5 @@
 import { createAction, handleActions } from "redux-actions";
-import { Produce } from "immer";
+import produce, { Produce } from "immer";
 import "moment";
 import moment from "moment";
 
@@ -19,16 +19,18 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post,
 }));
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
-const loading = createAction(LOADING, (is_loading) => ({ is_loading }));
+
 
 // 좋아요 토글 액션 생성자
-const likeToggle = createAction(LIKE_TOGGLE, (post_id, is_like = null) => ({
+export const likeToggle = createAction(LIKE_TOGGLE, (post_id, is_like = null) => ({
   post_id,
   is_like,
 }));
 
 const initialState = {
-	list: [],
+	list: [
+		
+	],
   // paging: { start: null, next: null, size: 3 },
   is_loading: false,
 };
@@ -45,7 +47,14 @@ const initialPost = {
 // 리듀서
 export default handleActions(
 	{
+		[LIKE_TOGGLE]: (state, action) => 
+		produce(state, (draft) => {
 
+			// 배열에서 몇 번째에 있는 지 찾은 다음, is_like를 action에서 가져온 값으로 바꾸기!
+			let idx = draft.list.findIndex((p) => p.id === action.payload)
+
+			draft.list[idx].is_like = action.payload.is_like;
+		}),
 	},
 	initialState
 );

@@ -5,9 +5,11 @@ const PostList = (props) => {
 
   return (
     <React.Fragment>
-      <Post />
-      <Post />
-      <Post />
+      <div style={{background: "#fafafa"}}>
+        <Post />
+        <Post />
+        <Post />
+      </div>
     </React.Fragment>
   )
 };
