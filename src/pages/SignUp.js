@@ -6,7 +6,28 @@ import image from "../shared/googleapp.PNG";
 import imgLogo from "../shared/instagram-logo.png";
 import { AiFillFacebook } from "react-icons/ai";
 
+import { useDispatch } from "react-redux";
+import { userCreators } from "../redux/modules/user";
+
 const SignUp = (props) => {
+  const dispatch = useDispatch();
+
+  const [id, setId] = React.useState("");
+  const [pw, setPw] = React.useState("");
+  const [name, setName] = React.useState("");
+  const [nick, setNick] = React.useState("");
+
+  const user_data = {
+    userId: id,
+    userPw: pw,
+    userName: name,
+    userNameId: nick,
+  };
+
+  const signup = () => {
+    dispatch(userCreators.signupDB(user_data));
+  };
+
   return (
     <React.Fragment style={{ backgroundColor: "#fafafa" }}>
       <Grid
@@ -47,15 +68,26 @@ const SignUp = (props) => {
             width="268px"
             padding="10px"
             placeholder="휴대폰 번호 또는 이메일 주소"
+            _onChange={(e) => setId(e.target.value)}
           />
         </Grid>
         {/* 이름 */}
         <Grid margin="0px 0px 6px 0px">
-          <Input width="268px" padding="10px" placeholder="성명" />
+          <Input
+            width="268px"
+            padding="10px"
+            placeholder="성명"
+            _onChange={(e) => setName(e.target.value)}
+          />
         </Grid>
         {/* 닉네임 */}
         <Grid margin="0px 0px 6px 0px">
-          <Input width="268px" padding="10px" placeholder="사용자 이름" />
+          <Input
+            width="268px"
+            padding="10px"
+            placeholder="사용자 이름"
+            _onChange={(e) => setNick(e.target.value)}
+          />
         </Grid>
         {/* 비밀번호 */}
         <Grid margin="0px 0px 6px 0px">
@@ -65,11 +97,19 @@ const SignUp = (props) => {
             color="#8e8e9b"
             type="password"
             placeholder="비밀번호"
+            _onChange={(e) => setPw(e.target.value)}
           />
         </Grid>
 
         <Grid margin="14px 0px">
-          <Button size="14px" width="268px" bg="#0095f6" padding="5px 0px">
+          <Button
+            color="#ffffff"
+            size="14px"
+            width="268px"
+            bg="#0095f6"
+            padding="5px 0px"
+            _onClick={signup}
+          >
             가입
           </Button>
         </Grid>
