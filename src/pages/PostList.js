@@ -1,17 +1,19 @@
 import React from "react";
 import Post from "../components/Post";
 
-const PostList = (props) => {
+import Header from "../components/Header";
 
+const PostList = (props) => {
   return (
     <React.Fragment>
-      <div style={{background: "#fafafa"}}>
+      <Header />
+      <div style={{ background: "#fafafa" }}>
         <Post />
         <Post />
         <Post />
       </div>
     </React.Fragment>
-  )
+  );
 };
 
 export default PostList;
