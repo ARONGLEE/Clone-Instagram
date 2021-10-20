@@ -26,6 +26,7 @@ const Login = (props) => {
         height="100%"
         margin="0px auto"
         padding="10px 0px"
+        bg="#ffffff"
         center
       >
         <Grid margin="12px auto">
@@ -38,6 +39,7 @@ const Login = (props) => {
             width="268px"
             padding="10px"
             placeholder="전화번호, 사용자 이름 또는 이메일"
+            bg="#fafafa"
             _onChange={(e) => setId(e.target.value)}
           />
         </Grid>
@@ -48,6 +50,7 @@ const Login = (props) => {
             padding="10px"
             type="password"
             placeholder="비밀번호"
+            bg="#fafafa"
             _onChange={(e) => setPw(e.target.value)}
           />
         </Grid>
@@ -87,6 +90,7 @@ const Login = (props) => {
         border="1px solid #DCDCDC"
         width="350px"
         padding="10px 0px"
+        bg="#ffffff"
       >
         <Text margin="10px 0px">
           계정이 없으신가요?{" "}

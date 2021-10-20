@@ -2,11 +2,21 @@ import styled from "styled-components";
 import React from "react";
 
 const Image = (props) => {
-  const { shape, src, size } = props;
+  const {
+    shape,
+    src,
+    size,
+    //아영 - 추가
+    width,
+    height,
+  } = props;
 
   const styles = {
     src: src,
     size: size,
+    //아영 - 추가
+    width: width,
+    height: height,
   };
 
   if (shape === "circle") {
@@ -54,9 +64,9 @@ const AspectInner = styled.div`
 `;
 
 const ImageCircle = styled.div`
-  --size: ${(props) => props.size}px;
-  width: var(--size);
-  height: var(--size);
+  --size: ${(props) => props.size};
+  width: ${(props) => props.width};
+  height: ${(props) => props.height};
   border-radius: var(--size);
 
   background-image: url("${(props) => props.src}");
