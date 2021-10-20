@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import Input from "../elements/Input";
 import Image from "../elements/Image";
 import Button from "../elements/Button";
@@ -19,16 +19,15 @@ function PostWrite(props) {
     setSelectedImage();
   };
 
-
   return (
     <React.Fragment>
       <Grid
-        width="35%"
+        width="30%"
         border="1px solid #DCDCDC"
         height="100%"
         margin="0px auto"
         padding="0px 0px"
-        borderRadius="10px"
+        bg="#ffffff"
       >
         <Text bold center size="16px" padding="12px">
           새 게시물 만들기
@@ -46,23 +45,26 @@ function PostWrite(props) {
             enctype="multipart/form-data"
           >
             <Grid padding="30px 0 0 0">
-              <Input type="file" name="img" multiple width="100%" 
-          _onChange={imageChange} />
+              <Input
+                type="file"
+                name="img"
+                multiple
+                width="100%"
+                _onChange={imageChange}
+              />
 
               {selectedImage && (
-          <div style={styles.preview}>
-            <img
-              src={URL.createObjectURL(selectedImage)}
-              style={styles.image}
-              alt="Thumb"
-            />
-            <button onClick={removeSelectedImage} style={styles.delete}>
-              Remove This Image
-            </button>
-          </div>
-        )}
-
-
+                <div style={styles.preview}>
+                  <img
+                    src={URL.createObjectURL(selectedImage)}
+                    style={styles.image}
+                    alt="Thumb"
+                  />
+                  <button onClick={removeSelectedImage} style={styles.delete}>
+                    첨부 이미지 삭제
+                  </button>
+                </div>
+              )}
             </Grid>
             <Grid padding="40px 0">
               <Input
@@ -74,15 +76,6 @@ function PostWrite(props) {
               />
             </Grid>
             <Button type="submit">공유하기</Button>
-      
-
-
-
-      
-
-
-
-
           </form>
         </Grid>
       </Grid>
@@ -102,7 +95,6 @@ PostWrite.defaultProps = {
   insert_dt: "2021-09-30 10:00:00",
 };
 
-
 const styles = {
   container: {
     display: "flex",
@@ -112,7 +104,7 @@ const styles = {
     paddingTop: 50,
   },
   preview: {
-    marginTop: 50,
+    marginTop: 40,
     display: "flex",
     flexDirection: "column",
   },
@@ -120,12 +112,10 @@ const styles = {
   delete: {
     cursor: "pointer",
     padding: 15,
-    background: "red",
-    color: "white",
+    background: "rgb(239,239,239)",
+    color: "black",
     border: "none",
   },
 };
-
-
 
 export default PostWrite;
