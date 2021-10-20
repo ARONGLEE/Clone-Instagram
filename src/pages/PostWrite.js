@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from 'react';
 import Input from "../elements/Input";
 import Image from "../elements/Image";
 import Button from "../elements/Button";
@@ -7,6 +7,19 @@ import Grid from "../elements/Grid";
 import Text from "../elements/Text";
 
 function PostWrite(props) {
+  const [selectedImage, setSelectedImage] = useState();
+
+  // This function will be triggered when the file field change
+  const imageChange = (e) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setSelectedImage(e.target.files[0]);
+    }
+  };
+  const removeSelectedImage = () => {
+    setSelectedImage();
+  };
+
+
   return (
     <React.Fragment>
       <Grid
@@ -15,6 +28,7 @@ function PostWrite(props) {
         height="100%"
         margin="0px auto"
         padding="0px 0px"
+        borderRadius="10px"
       >
         <Text bold center size="16px" padding="12px">
           새 게시물 만들기
@@ -32,7 +46,23 @@ function PostWrite(props) {
             enctype="multipart/form-data"
           >
             <Grid padding="30px 0 0 0">
-              <Input type="file" name="img" multiple width="100%" />
+              <Input type="file" name="img" multiple width="100%" 
+          _onChange={imageChange} />
+
+              {selectedImage && (
+          <div style={styles.preview}>
+            <img
+              src={URL.createObjectURL(selectedImage)}
+              style={styles.image}
+              alt="Thumb"
+            />
+            <button onClick={removeSelectedImage} style={styles.delete}>
+              Remove This Image
+            </button>
+          </div>
+        )}
+
+
             </Grid>
             <Grid padding="40px 0">
               <Input
@@ -44,6 +74,15 @@ function PostWrite(props) {
               />
             </Grid>
             <Button type="submit">공유하기</Button>
+      
+
+
+
+      
+
+
+
+
           </form>
         </Grid>
       </Grid>
@@ -62,5 +101,31 @@ PostWrite.defaultProps = {
   comment_cnt: 10,
   insert_dt: "2021-09-30 10:00:00",
 };
+
+
+const styles = {
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+    paddingTop: 50,
+  },
+  preview: {
+    marginTop: 50,
+    display: "flex",
+    flexDirection: "column",
+  },
+  image: { maxWidth: "100%", maxHeight: 320 },
+  delete: {
+    cursor: "pointer",
+    padding: 15,
+    background: "red",
+    color: "white",
+    border: "none",
+  },
+};
+
+
 
 export default PostWrite;
