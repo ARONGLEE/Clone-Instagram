@@ -1,7 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
 import { useDispatch } from "react-redux";
-import { postActions } from "../redux/modules/post";
 
 import { Button, Grid, Image, Text } from "../elements";
 import Modal from "./Modal";

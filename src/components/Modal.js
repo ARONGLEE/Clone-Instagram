@@ -1,7 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
 
-// import { Button } from "../elements";
 
 const Modal = (props) => {
 	const { setOpenModal } = props;
