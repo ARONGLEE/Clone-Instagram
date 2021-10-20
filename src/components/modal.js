@@ -27,7 +27,7 @@ const Modal = (props) => {
 
 			<ModalBackground class="modal-background" id="modal">
 				<ModalContainer class="modal">
-					<Button style={{borderRadius:"10px 10px 0 0"}}>신고</Button>
+					<Button style={{borderRadius:"10px 10px 0 0"}}>삭제</Button>
 					<Button >팔로우 취소</Button>
 					<Button >게시물로 이동</Button>
 					<Button>공유 대상...</Button>
@@ -60,7 +60,7 @@ const ModalBackground = styled.div`
 `;
 
 const ModalContainer = styled.div`
-  width: 250px;
+  /* width: 384px; */
   border-radius: 30px;
   background-color: white;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
@@ -71,9 +71,10 @@ const ModalContainer = styled.div`
 `;
 
 const Button = styled.button`
-	font-size: 10px;
+	width: 384px;
+	font-size: 14px;
 	font-weight: bold;
-	padding: 10px;
+	padding: 14px;
 	background-color: #fff;
 	border-width: 0;
 	border-bottom-width: 1px;

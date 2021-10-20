@@ -22,31 +22,34 @@ const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 
 
 // 좋아요 토글 액션 생성자
-export const likeToggle = createAction(LIKE_TOGGLE, (post_id, is_like = null) => ({
-  post_id,
+const likeToggle = createAction(LIKE_TOGGLE, (post_id, is_like = null) => ({
   is_like,
 }));
 
 const initialState = {
-	list: [
-		
-	],
-  // paging: { start: null, next: null, size: 3 },
-  is_loading: false,
+	list: [ 1, 2, 3],
+
 };
 
 const initialPost = {
-	image_url: "https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg",
-	contents: "",
-	like_cnt: 0,
-	is_like: false,
-	insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+	user_info: {
+		user_name: 'jinsik',
+		// user_profile: 'https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png'
+	},
+	image_url: 'https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg',
+	contents: '배경 내용이 들어가요',
+	comment_cnt: 10,
+	insert_dt: '2021-09-30 10:00:00',
+	is_like: true,
 }
 
 
 // 리듀서
 export default handleActions(
 	{
+		[SET_POST]: (state, action) => produce(state, (draft) => {
+
+		}),
 		[LIKE_TOGGLE]: (state, action) => 
 		produce(state, (draft) => {
 
@@ -58,3 +61,10 @@ export default handleActions(
 	},
 	initialState
 );
+
+const postActions = {
+	setPost, 
+	likeToggle,
+}
+
+export {postActions}
