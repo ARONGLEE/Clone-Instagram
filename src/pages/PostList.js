@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Post from "../components/Post";
 import { postActions } from "../redux/modules/post";
 
-// import Header from "../components/Header";
+import Header from "../components/Header";
 
 const PostList = (props) => {
 
