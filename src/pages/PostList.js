@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 
 import Post from "../components/Post";
 
-import Header from "../components/Header";
+// import Header from "../components/Header";
 
 const PostList = (props) => {
   const post_list = useSelector((state) => state.post.list);
