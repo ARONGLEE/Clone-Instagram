@@ -11,8 +11,9 @@ const PostList = (props) => {
 
   return (
     <React.Fragment>
+      <Header />
       {post_list.map((p, idx) => {
-        return <Post key={p.id} {...p} />
+        return <Post key={p.id} {...p} />;
       })}
     </React.Fragment>
   );
