@@ -12,13 +12,14 @@ const Input = (props) => {
     value,
     is_submit,
     onSubmit,
-    //아영 - width, margin, padding, borderRadius, height, color 추가
+    //아영 - 추가
     width,
     margin,
     padding,
     borderRadius,
     height,
     color,
+    bg,
   } = props;
 
   if (multiLine) {
@@ -34,7 +35,7 @@ const Input = (props) => {
       </Grid>
     );
   }
-  //아영 - width, margin, padding, borderRadius, height, color 추가
+  //아영 - 추가
   const styles = {
     width: width,
     margin: margin,
@@ -42,6 +43,7 @@ const Input = (props) => {
     borderRadius: borderRadius,
     height: height,
     color: color,
+    bg: bg,
   };
 
   return (
@@ -92,6 +94,7 @@ Input.defaultProps = {
   borderRadius: false,
   height: false,
   color: false,
+  bg: false,
 };
 
 const ElInput = styled.input`
@@ -106,6 +109,7 @@ const ElInput = styled.input`
       ? `border-radius: ${props.borderRadius};`
       : "border-radius: 3px;"}
   color: ${(props) => props.color};
+  ${(props) => (props.bg ? `background-color: ${props.bg};` : "")}
 `;
 
 const ElTextarea = styled.textarea`

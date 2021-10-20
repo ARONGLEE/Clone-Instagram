@@ -2,7 +2,7 @@
 import axios from "axios";
 
 const api = axios.create({
-  baseURL: "",
+  baseURL: "http://13.125.63.44",
   headers: {
     "content-type": "application/json;charset=UTF-8",
     accept: "application/json,",
@@ -18,12 +18,12 @@ const api = axios.create({
 export const apis = {
   // User
   login: (id, pw) =>
-    api.post("api/users/login", {
+    api.post("/api/users/login", {
       loginId: id,
       userPw: pw,
     }),
   signup: (id, pw, name, nick) =>
-    api.post("api/users/register", {
+    api.post("/api/users/register", {
       userId: id,
       userPw: pw,
       userName: name,
@@ -43,9 +43,10 @@ export const apis = {
   detailPost: (postId) => api.get(""),
 
   // Like
-   like: (postId) => api.post("api/likes/{postId}", {
-    param : postId
-   })
-    
+  like: (postId) =>
+    api.post("api/likes/{postId}", {
+      param: postId,
+    }),
+
   // Follow
 };

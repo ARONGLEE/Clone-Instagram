@@ -17,15 +17,15 @@ const SignUp = (props) => {
   const [name, setName] = React.useState("");
   const [nick, setNick] = React.useState("");
 
-  const user_data = {
-    userId: id,
-    userPw: pw,
-    userName: name,
-    userNameId: nick,
-  };
+  // const user_data = {
+  //   userId: id,
+  //   userPw: pw,
+  //   userName: name,
+  //   userNameId: nick,
+  // };
 
   const signup = () => {
-    dispatch(userCreators.signupDB(user_data));
+    dispatch(userCreators.signupDB(id, pw, name, nick));
   };
 
   return (
@@ -37,6 +37,7 @@ const SignUp = (props) => {
         margin="0px auto"
         padding="10px 0px"
         center
+        bg="#ffffff"
       >
         <Grid>
           <img src={imgLogo} style={{ width: "175px" }}></img>
@@ -67,6 +68,7 @@ const SignUp = (props) => {
           <Input
             width="268px"
             padding="10px"
+            bg="#fafafa"
             placeholder="휴대폰 번호 또는 이메일 주소"
             _onChange={(e) => setId(e.target.value)}
           />
@@ -76,6 +78,7 @@ const SignUp = (props) => {
           <Input
             width="268px"
             padding="10px"
+            bg="#fafafa"
             placeholder="성명"
             _onChange={(e) => setName(e.target.value)}
           />
@@ -85,6 +88,7 @@ const SignUp = (props) => {
           <Input
             width="268px"
             padding="10px"
+            bg="#fafafa"
             placeholder="사용자 이름"
             _onChange={(e) => setNick(e.target.value)}
           />
@@ -96,6 +100,7 @@ const SignUp = (props) => {
             padding="10px"
             color="#8e8e9b"
             type="password"
+            bg="#fafafa"
             placeholder="비밀번호"
             _onChange={(e) => setPw(e.target.value)}
           />
@@ -120,6 +125,7 @@ const SignUp = (props) => {
         margin="10px auto"
         border="1px solid #DCDCDC"
         width="350px"
+        bg="#ffffff"
         padding="10px 0px"
       >
         <Text margin="10px 0px">
