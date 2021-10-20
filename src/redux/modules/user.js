@@ -45,13 +45,12 @@ const setLoginDB = (id, pw) => {
       .login(id, pw)
       .then((res) => {
         console.log(res);
-        //setCookie("token", res.data[1].token, 7);
-        setCookie("token", res.data.token);
-        console.log(res.data.token, 7);
-        localStorage.setItem("userId", res.data[0].userId, 7);
-        //이부분  이해 안되는....
+        //setCookie("token", res.data[2].token, 7);
+        setCookie("token", res.data.token, 5);
+        console.log(res.data.token);
+        localStorage.setItem("userId", id);
         dispatch(setLogin({ id }));
-        //history.replace("/");
+        history.replace("/");
       })
       .catch((err) => {
         window.alert("아이디 및 비밀번호를 확인해주세요!");
