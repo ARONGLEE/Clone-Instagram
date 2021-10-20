@@ -31,7 +31,7 @@ const Post = (props) => {
           <Grid is_flex width="auto">
             <Image shape="circle" size="32" margin="0px" src={props.src} />
             <Text bold size="14px" margin="6px">
-              {props.user_info.user_name}
+              {props.userId}
             </Text>
           </Grid>
           <Button
@@ -51,7 +51,7 @@ const Post = (props) => {
 
         {/* 사진 */}
         <Grid>
-          <Image shape="rectangle" src={props.image_url} />
+          <Image shape="rectangle" src={props.postImg} />
         </Grid>
 
         {/* 하트, 상세페이지, 보내기 아이콘 */}
@@ -89,10 +89,10 @@ const Post = (props) => {
         </Text>
         <Div>
           <Text bold size="14px" margin="8px 8px">
-            {props.user_info.user_name}
+            {props.userId}
           </Text>
           <Text bold size="14px" margin="8px 8px">
-            {props.contents}
+            {props.postContents}
           </Text>
         </Div>
 
@@ -107,14 +107,12 @@ const Post = (props) => {
 
 // 부모에서 프롭스 못받을때 오류나 화면 깨짐 방지
 Post.defaultProps = {
-  user_info: {
-    user_name: "jinsik",
-    // user_profile: 'https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png'
-  },
-  image_url:
+  userId: "jinsik",
+  // user_profile: 'https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png'
+  postImg:
     "https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg",
-  contents: "배경 내용이 들어가요",
-  comment_cnt: 10,
+	postContents: "배경 내용이 들어가요",
+  comment_cnt: 0,
   insert_dt: "2021-09-30 10:00:00",
   is_like: true,
 };
