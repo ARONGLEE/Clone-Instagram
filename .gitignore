@@ -23,3 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 # 올리지 말 파일
+# Clone-instagram/src/index.js
+# Clone-instagram/src/shared/App.js
+# Clone-instagram/src/redux/configureStore.js
+src/components/Heart.js
+src/index.js
+src/shared/App.js
