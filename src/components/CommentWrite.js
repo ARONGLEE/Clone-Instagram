@@ -21,7 +21,7 @@ const CommentWrite = (props) => {
 
   return (
     <React.Fragment>
-      <Grid is_flex width="90%" height="55px" margin="0px auto">
+      <Grid is_flex width="100%" height="55px" margin="0px auto">
         <Emote>
           <svg
             aria-label="이모티콘"
