@@ -18,12 +18,12 @@ const api = axios.create({
 export const apis = {
   // User
   login: (id, pw) =>
-    api.post("/api/users/login", {
+    api.post("api/users/login", {
       loginId: id,
       userPw: pw,
     }),
   signup: (id, pw, name, nick) =>
-    api.post("/api/users/register", {
+    api.post("api/users/register", {
       userId: id,
       userPw: pw,
       userName: name,
@@ -32,7 +32,7 @@ export const apis = {
 
   //Post
   // 게시물 불러오기
-  getPost: () => api.get(""),
+  getPost: () => api.get("api/posts"),
   // 게시물 작성하기
   addPost: (contents) => api.post("", contents),
   // 게시물 수정하기
@@ -43,10 +43,9 @@ export const apis = {
   detailPost: (postId) => api.get(""),
 
   // Like
-  like: (postId) =>
-    api.post("api/likes/{postId}", {
-      param: postId,
-    }),
-
+   like: (postId) => api.post("api/likes/{postId}", {
+    param : postId
+   })
+    
   // Follow
 };
