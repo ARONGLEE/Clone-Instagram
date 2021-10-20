@@ -15,7 +15,6 @@ function PostWrite(props) {
         height="100%"
         margin="0px auto"
         padding="0px 0px"
-        borderRadius="10px"
       >
         <Text bold center size="16px" padding="12px">
           새 게시물 만들기
