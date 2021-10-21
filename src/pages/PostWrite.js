@@ -5,6 +5,7 @@ import Button from "../elements/Button";
 import styled from "styled-components";
 import Grid from "../elements/Grid";
 import Text from "../elements/Text";
+import axios from "axios";
 
 function PostWrite(props) {
   const [selectedImage, setSelectedImage] = useState();
@@ -18,6 +19,19 @@ function PostWrite(props) {
   const removeSelectedImage = () => {
     setSelectedImage();
   };
+
+  const fileUploadHandler=()=>{
+    const formData = new FormData();
+    formData.append("image", setSelectedImage, setSelectedImage.name);
+    axios.post("api/posts/create", formData)
+    .then(res => {
+      console.log(res);
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  };
+
 
   return (
     <React.Fragment>
@@ -75,7 +89,7 @@ function PostWrite(props) {
                 height="150px"
               />
             </Grid>
-            <Button type="submit">공유하기</Button>
+            <Button type="submit" _onClick={fileUploadHandler}>공유하기</Button>
           </form>
         </Grid>
       </Grid>
