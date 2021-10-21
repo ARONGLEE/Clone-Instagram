@@ -13,6 +13,7 @@ const DELETE_POST = "DELETE_POST";
 
 // 좋아요 토글하기 액션
 const LIKE_TOGGLE = "LIKE_TOGGLE";
+const LIKE_NUM = "LIKE_NUM";
 
 const getPost = createAction(GET_POST, (post_list) => ({ post_list }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
@@ -23,24 +24,41 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 
 // 좋아요 토글 액션 생성자
-const likeToggle = createAction(LIKE_TOGGLE, (post_id, is_like = null) => ({
+const likeToggle = createAction(LIKE_TOGGLE, (postId, is_like = null) => ({
+	postId,
   is_like,
 }));
 
+const likeNum = createAction(LIKE_NUM, (post_id) => ({ post_id }));
+
 const initialState = {
-  list: [],
+	list: [
+		{
+			// userId: "jinsik",
+			// // user_profile: 'https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png',
+			// postImg:
+			// 	"https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg",
+			// postContents: "",
+			// comment_cnt: 0,
+			// insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+			// is_like: false,
+			// likeNum: 0
+		}
+	],
 };
 
-const initialPost = {
-  userId: "jinsik",
-  // user_profile: 'https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png'
-  postImg:
-    "https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg",
-  postContents: "배경 내용이 들어가요",
-  comment_cnt: 0,
-  insert_dt: "2021-09-30 10:00:00",
-  is_like: true,
-};
+// const initialPost = {
+//   userId: "jinsik",
+//   // user_profile: 'https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png'
+//   postImg:
+//     "https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg",
+// 	postContents: "",
+//   comment_cnt: 0,
+//   insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+//   is_like: false,
+//   likeNum: 0
+// }
+
 
 // 미들웨어
 const getPostAPI = () => {
@@ -48,6 +66,7 @@ const getPostAPI = () => {
     apis
       .getPost(getPost())
       .then((res) => {
+				// console.log("",res)
         // console.log(res.data.result);
         const post_list = res.data.result;
         dispatch(getPost(post_list));
@@ -58,27 +77,65 @@ const getPostAPI = () => {
   };
 };
 
+const LikeToggleAPI = (postId, is_like) => {
+	return function (dispatch, getState, {history}) {
+		console.log("is_like", is_like)
+		if (is_like) {
+			apis
+				.addLike(postId)
+				.then((res) => {
+					// console.log(res);
+					dispatch(likeToggle(postId, is_like))
+				})
+				.catch((err) => {
+					console.log(err)
+				});
+		} else {
+			apis
+				.delteLike(postId)
+				.then((res) => {
+					// console.log(res);
+					dispatch(likeToggle(postId, is_like))
+				})
+				.catch((err) => {
+					console.log(err)
+				});
+		}
+			
+	}
+}
+
+
+
+
 // 리듀서
 export default handleActions(
-  {
-    [GET_POST]: (state, action) =>
-      produce(state, (draft) => {
-        draft.list = action.payload.post_list;
-      }),
-    [LIKE_TOGGLE]: (state, action) =>
-      produce(state, (draft) => {
-        // 배열에서 몇 번째에 있는 지 찾은 다음, is_like를 action에서 가져온 값으로 바꾸기!
-        let idx = draft.list.findIndex((p) => p.id === action.payload);
+	{
+		[GET_POST]: (state, action) => produce(state, (draft) => {
+			draft.list = action.payload.post_list;
+		}),
 
-        draft.list[idx].is_like = action.payload.is_like;
-      }),
-  },
-  initialState
+		[LIKE_TOGGLE]: (state, action) => 
+		produce(state, (draft) => {
+			// 배열에서 몇 번째에 있는 지 찾은 다음, is_like를 action에서 가져온 값으로 바꾸기!
+			let idx = draft.list.findIndex((p) => p.postId === action.payload.postId);
+			if (action.payload.is_like) {
+				draft.list[idx].likeNum = draft.list[idx].likeNum + 1;
+				draft.list[idx].is_like = true;
+			} else {
+				draft.list[idx].likeNum = draft.list[idx].likeNum - 1;
+				draft.list[idx].is_like = false;
+			}
+			// draft.list[idx].is_like = action.payload.is_like;
+		}),
+
+	},
+	initialState
 );
 
 const postActions = {
-  getPostAPI,
-  likeToggle,
-};
+	getPostAPI, 
+	LikeToggleAPI,
+}
 
 export { postActions };

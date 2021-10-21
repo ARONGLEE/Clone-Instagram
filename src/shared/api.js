@@ -1,6 +1,8 @@
 // axios
 import axios from "axios";
 
+const USER_TOKEN = localStorage.getItem("token");
+
 const api = axios.create({
   baseURL: "http://13.125.63.44",
   headers: {
@@ -8,6 +10,17 @@ const api = axios.create({
     accept: "application/json,",
   },
 });
+
+api.interceptors.request.use(
+  function (config) {
+    config.headers.Authorization = `Bearer ${USER_TOKEN}`;
+    return config;
+  },
+  function (error) {
+    console.log("err");
+    return Promise.reject(error);
+  }
+);
 
 // api.interceptors.request.use(function (config) {
 //   const accessToken = document.cookie.split("=")[1];
@@ -18,12 +31,12 @@ const api = axios.create({
 export const apis = {
   // User
   login: (id, pw) =>
-    api.post("api/users/login", {
+    api.post("/api/users/login", {
       loginId: id,
       userPw: pw,
     }),
   signup: (id, pw, name, nick) =>
-    api.post("api/users/register", {
+    api.post("/api/users/register", {
       userId: id,
       userPw: pw,
       userName: name,
@@ -32,7 +45,7 @@ export const apis = {
 
   //Post
   // 게시물 불러오기
-  getPost: () => api.get("api/posts"),
+  getPost: () => api.get("/api/posts"),
   // 게시물 작성하기
   addPost: (contents) => api.post("", contents),
   // 게시물 수정하기
@@ -43,58 +56,17 @@ export const apis = {
   detailPost: (postId) => api.get(""),
 
   // Like
-   like: (postId) => api.post("api/likes/{postId}", {
-    param : postId
-   }),
+   addLike: (postId) => api.post(`/api/likes/${postId}`),
+   delteLike: (postId) => api.delete(`/api/likes/${postId}`),
+   likeNum: (postId) => api.get(`/api/likes/${postId}`),
     
   // Follow
 
   // comments
-  AddComment: (postId, replyContent) => api.post(`/api/replyPost/${postId}`, {replyContent: replyContent}),
+  addComment: (postId, comment ) => api.post(`/api/replyPost/${postId}`, {comment:comment}),
   DelComment: (postId,commentId) => api.delete(`/api/replyPost/${postId}/${commentId}`),
   // UpdateComment: (postId,commentId) => api.put(`/api/replyPost/${postId}/${commentId}`),
 
   
 };
 
-
-
-/// comments
-const COMMENTLOAD = 'comment/LOAD';
-const COMMENTDELETE = 'comment/DELETE';
-const COMMENTCREATE = 'comment/CREATE';
-
-/// comments
-const loadComment = createAction(COMMENTLOAD, (comments) => ({comments}));
-const createComment = createAction(COMMENTCREATE, (index,newComment) => ({index,newComment}));
-const deleteComment = createAction(COMMENTDELETE, (index,commentId) => ({index,commentId}));
-
-
-const createCommentDB = (postId,comment,index) => {
-  return function(dispatch, getState, {history}){
-      apis
-      .AddComment(postId,comment)
-      .then((res) => {
-          const newComment = res.data
-          dispatch(createComment(index,newComment))
-          dispatch(loadBoardDB())
-          dispatch(detailArticleDB(postId))
-      }).catch((err) => {
-          console.log(err)
-      })
-  }
-}
-
-const deleteCommentDB = (postId,commentId,index) => {
-  return function(dispatch, getState, {history}){
-      apis
-      .DelComment(postId,commentId)
-      .then((res) => {
-          dispatch(deleteComment(index,commentId))
-          dispatch(loadBoardDB())
-          dispatch(detailArticleDB(postId))
-      }).catch((err) => {
-          console.log(err)
-      })
-  }
-}

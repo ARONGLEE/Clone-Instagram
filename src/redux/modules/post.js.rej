@@ -1,0 +1,22 @@
+diff a/src/redux/modules/post.js b/src/redux/modules/post.js	(rejected hunks)
+@@ -24,16 +24,17 @@
+ const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
+ 
+ // 좋아요 토글 액션 생성자
+-const likeToggle = createAction(LIKE_TOGGLE, (postId, is_like = null) => ({
++const likeToggle = createAction(LIKE_TOGGLE, (postId, likeState = null) => ({
+ 	postId,
+-  is_like,
++  likeState,
+ }));
+ 
+-const likeNumber = createAction(LIKE_NUM, (likeNum) => ({ likeNum }));
+ 
+ // 초기값
+ const initialState = {
+ 	list: [],
++	post_like: [],
++	likeState: false,
+ };
+ 
+ 

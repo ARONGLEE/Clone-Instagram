@@ -2,11 +2,18 @@ import React, { useEffect, useState } from "react";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
 import { useDispatch, useSelector } from 'react-redux';
-import { apis } from "../shared/api";
+import { commentActions } from "../redux/modules/comment"; 
 
 const CommentWrite = (props) => {
+  const dispatch = useDispatch();
+
   const [comment_text, setComment_text] = useState("");
   const [able, setAble] = useState(false);
+
+  // const aa = useSelector((state) => state.comment.list);
+  // console.log("aa", aa);
+ 
+  console.log("props.postId",props.postId);
 
   const onChanged = (e) => {
     setComment_text(e.target.value);
@@ -18,16 +25,16 @@ const CommentWrite = (props) => {
   };
 
   const write = () => {
-    console.log(comment_text);
+    // console.log(comment_text);
+    dispatch(commentActions.createCommentDB(1,comment_text))
   };
 
-  const dispatch = useDispatch();
 
-  const board_list = useSelector((state) => state.board.list);
+  // const board_list = useSelector((state) => state.board.list);
 
-    useEffect(() => {
-        dispatch(apis.loadBoardDB());
-    },[])
+    // useEffect(() => {
+    //     dispatch(apis.loadBoardDB());
+    // },[])
 
   return (
     <React.Fragment>

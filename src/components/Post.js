@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { Button, Grid, Image, Text } from "../elements";
 import Modal from "./Modal";
 import CommentWrite from "./CommentWrite";
+import { postActions } from "../redux/modules/post";
 
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -12,11 +13,22 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import SendIcon from "@mui/icons-material/Send";
 
+
 const Post = (props) => {
   const dispatch = useDispatch();
 
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [like, setLike] = React.useState(false);
+  const [is_like, setIs_like] = React.useState(false);
+  const [postId, setPostId] = React.useState(props.postId)
+
+  
+  
+  console.log("postId",postId)
+  console.log("is_like",is_like)
+  // if (like) {
+  //   dispatch(postActions.likeToggleAPI(props.postId, like))
+  // }
+  
 
   return (
     <React.Fragment>
@@ -42,7 +54,7 @@ const Post = (props) => {
             color="#000"
             className="openModalBtn"
             _onClick={() => {
-              setModalOpen(true);
+              setModalOpen(true); 
             }}
           >
             ···
@@ -56,10 +68,14 @@ const Post = (props) => {
 
         {/* 하트, 상세페이지, 보내기 아이콘 */}
         <Grid padding="3px">
-          {like ? (
+
+          {is_like ? (
             <IconButton
               onClick={() => {
-                setLike(false);
+                setIs_like(false);
+                console.log("Post75",postId, is_like);
+                dispatch(postActions.LikeToggleAPI(postId, is_like));
+                
               }}
             >
               <FavoriteIcon color="success" />
@@ -67,7 +83,8 @@ const Post = (props) => {
           ) : (
             <IconButton
               onClick={() => {
-                setLike(true);
+                setIs_like(true);
+                dispatch(postActions.likeToggleAPI(postId, is_like));
               }}
             >
               <FavoriteBorderIcon />
@@ -81,11 +98,12 @@ const Post = (props) => {
           <IconButton>
             <SendIcon />
           </IconButton>
+
         </Grid>
 
         {/* 좋아요, 내용, 시간 */}
         <Text margin="0px 8px" bold size="14px" style={{ fontWeight: "600" }}>
-          좋아요 {like ? props.comment_cnt + 1 : props.comment_cnt}개
+          좋아요 {is_like ? props.comment_cnt + 1 : props.comment_cnt}개
         </Text>
         <Div>
           <Text bold size="14px" margin="8px 8px">
