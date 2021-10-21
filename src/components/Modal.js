@@ -26,7 +26,9 @@ const Modal = (props) => {
     <React.Fragment>
       <ModalBackground class="modal-background" id="modal">
         <ModalContainer class="modal">
-          <Button style={{ borderRadius: "10px 10px 0 0" }}>삭제</Button>
+          {props.is_me && (
+            <Button style={{ borderRadius: "10px 10px 0 0" }}>삭제</Button>
+          )}
           <Button>팔로우 취소</Button>
           <Button>게시물로 이동</Button>
           <Button>공유 대상...</Button>

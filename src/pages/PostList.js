@@ -7,7 +7,6 @@ import { postActions } from "../redux/modules/post";
 import Header from "../components/Header";
 
 const PostList = (props) => {
-
   const dispatch = useDispatch();
   const post_list = useSelector((state) => state.post.list);
   console.log("post_list", post_list);
@@ -16,11 +15,19 @@ const PostList = (props) => {
     dispatch(postActions.getPostAPI());
   }, []);
 
+  const user_info = useSelector((state) => state.user.user);
+  //console.log(user_info);
+
   return (
     <React.Fragment>
       <Header />
       {post_list.map((p, idx) => {
-        return <Post key={p.id} {...p} />;
+        //console.log(p);
+        if (p.userId === user_info?.id) {
+          return <Post key={p.id} {...p} is_me />;
+        } else {
+          return <Post key={p.id} {...p} />;
+        }
       })}
     </React.Fragment>
   );
