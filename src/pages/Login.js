@@ -14,7 +14,7 @@ const Login = (props) => {
 
   const [id, setId] = React.useState("");
   const [pw, setPw] = React.useState("");
-
+  // console.log(localStorage.getItem("token"));
   const login = () => {
     dispatch(userCreators.setLoginDB(id, pw));
   };
