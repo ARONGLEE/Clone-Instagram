@@ -3,7 +3,7 @@ import { createAction, handleActions } from "redux-actions";
 //immer 가져오기
 import { produce } from "immer";
 //Cookie 가져오기
-import { deleteCookie, setCookie } from "../../shared/Cookie";
+//import { deleteCookie, setCookie } from "../../shared/Cookie";
 //axios 가져오기
 import { apis } from "../../shared/api";
 
@@ -47,9 +47,9 @@ const setLoginDB = (id, pw) => {
         console.log(res);
         //setCookie("token", res.data[2].token, 7);
         //setCookie("token", res.data.token, 5);
-        //console.log(res.data.token);
         localStorage.setItem("token", res.data.token);
-        localStorage.setItem("userId", id);
+        console.log(res.data.token);
+        //localStorage.setItem("userId", id);
         //sessionStorage.setItem("token", res.data.token);
         console.log(res.data.token);
         dispatch(setLogin({ id }));
@@ -64,8 +64,8 @@ const setLoginDB = (id, pw) => {
 //로그아웃
 const logOutDB = () => {
   return function (dispatch, getState, { history }) {
-    deleteCookie("token");
-    localStorage.removeItem("userId");
+    //deleteCookie("token");
+    localStorage.removeItem("token");
     dispatch(logOut());
     history.replace("/login");
   };
@@ -74,10 +74,9 @@ const logOutDB = () => {
 //로그인체크
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
-    const userId = localStorage.getItem("userId");
-    const tokenCheck = document.cookie;
-    if (tokenCheck) {
-      dispatch(setLogin({ id: userId }));
+    const tokenCheck = localStorage.getItem("token");
+    if (tokenCheck !== "undefined" || tokenCheck !== null) {
+      dispatch(setLogin({ id: tokenCheck }));
     } else {
       dispatch(logOutDB());
     }
