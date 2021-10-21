@@ -29,23 +29,29 @@ const likeToggle = createAction(LIKE_TOGGLE, (postId, is_like = null) => ({
   is_like,
 }));
 
-const likeNum = createAction(LIKE_NUM, (post_id) => ({ post_id }));
+const likeNumber = createAction(LIKE_NUM, (likeNum) => ({ likeNum }));
 
+// 초기값
 const initialState = {
-	list: [
-		{
-			// userId: "jinsik",
-			// // user_profile: 'https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png',
-			// postImg:
-			// 	"https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg",
-			// postContents: "",
-			// comment_cnt: 0,
-			// insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
-			// is_like: false,
-			// likeNum: 0
-		}
-	],
+	list: [],
 };
+
+
+//게시글하나에 들어가야할 기본내용
+// const initialPost = {
+//   user_info: {
+// 		userId: "",
+//     profileImg:
+//       "https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png",
+//   },
+// 	postId: "",
+//   image_url:
+//       "https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg",
+// 	postContents: "",
+//   likeNum: 0,
+//   // comment_cnt: 10,
+//   insert_dt: moment().format("YYYY-MM-DD hh:mm:ss"),
+// };
 
 // const initialPost = {
 //   userId: "jinsik",
@@ -66,7 +72,11 @@ const getPostAPI = () => {
     apis
       .getPost(getPost())
       .then((res) => {
+<<<<<<< HEAD
 				// console.log("",res)
+=======
+				console.log("불러오기",res)
+>>>>>>> 0044a47 (최신화 떄문에 커밋)
         // console.log(res.data.result);
         const post_list = res.data.result;
         dispatch(getPost(post_list));
@@ -76,6 +86,8 @@ const getPostAPI = () => {
       });
   };
 };
+
+
 
 const LikeToggleAPI = (postId, is_like) => {
 	return function (dispatch, getState, {history}) {
@@ -105,6 +117,28 @@ const LikeToggleAPI = (postId, is_like) => {
 	}
 }
 
+<<<<<<< HEAD
+=======
+
+const likeNumAPI = (postId) => {
+	return function (dispatch, getState, {history}) {
+		// const post_list = getState().post.list;
+		// console.log("getState", post_list)
+		apis
+			.likeNum(postId)
+			.then((res) => {
+				console.log(`${postId} likeNumAPI갯수`,res.data.result)
+				// console.log("likeNumAPI",res)
+				// for(let i=0; i<)
+				const likeNum = res.data.result
+				dispatch(likeNumber(likeNum))
+			})
+			.catch((err) => {
+				console.log(err)
+			})
+	}
+}
+>>>>>>> 0044a47 (최신화 떄문에 커밋)
 
 
 
@@ -119,16 +153,23 @@ export default handleActions(
 		produce(state, (draft) => {
 			// 배열에서 몇 번째에 있는 지 찾은 다음, is_like를 action에서 가져온 값으로 바꾸기!
 			let idx = draft.list.findIndex((p) => p.postId === action.payload.postId);
+			// draft.list[idx].is_like = action.payload.is_like;
 			if (action.payload.is_like) {
-				draft.list[idx].likeNum = draft.list[idx].likeNum + 1;
+				// draft.list[idx].likeNum = draft.list[idx].likeNum + 1;
 				draft.list[idx].is_like = true;
 			} else {
-				draft.list[idx].likeNum = draft.list[idx].likeNum - 1;
+				// draft.list[idx].likeNum = draft.list[idx].likeNum - 1;
 				draft.list[idx].is_like = false;
 			}
 			// draft.list[idx].is_like = action.payload.is_like;
 		}),
 
+<<<<<<< HEAD
+=======
+		[LIKE_NUM]: (state, action) => produce(state, (draft) => {
+			draft.likeNum = action.payload.likeNum;
+		})
+>>>>>>> 0044a47 (최신화 떄문에 커밋)
 	},
 	initialState
 );
@@ -136,6 +177,7 @@ export default handleActions(
 const postActions = {
 	getPostAPI, 
 	LikeToggleAPI,
+	likeNumAPI
 }
 
 export { postActions };

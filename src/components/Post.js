@@ -1,11 +1,12 @@
 import React from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Button, Grid, Image, Text } from "../elements";
 import Modal from "./Modal";
 import CommentWrite from "./CommentWrite";
 import { postActions } from "../redux/modules/post";
+import profile from "../shared/profile.PNG"
 
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -15,16 +16,32 @@ import SendIcon from "@mui/icons-material/Send";
 
 
 const Post = (props) => {
+  // console.log("profile",profile)
   const dispatch = useDispatch();
+  const postId = props.postId
+  const likeCnt = props.likeCnt
+  console.log("likeCnt", likeCnt)
+
+  React.useEffect(() => {
+    dispatch(postActions.likeNumAPI(postId));
+  }, []);
+
+  // const likeCnt = useSelector((state) => state.post.list[postId].likeCnt);
+  // console.log("likeCnt",likeCnt)
 
   const [modalOpen, setModalOpen] = React.useState(false);
   const [is_like, setIs_like] = React.useState(false);
   const [postId, setPostId] = React.useState(props.postId)
 
   
+<<<<<<< HEAD
   
   console.log("postId",postId)
   console.log("is_like",is_like)
+=======
+  // console.log("postId",props.postId)
+  // console.log("is_like",is_like)
+>>>>>>> 0044a47 (최신화 떄문에 커밋)
   // if (like) {
   //   dispatch(postActions.likeToggleAPI(props.postId, like))
   // }
@@ -41,7 +58,7 @@ const Post = (props) => {
           padding="5px 4px 5px 8px"
         >
           <Grid is_flex width="auto">
-            <Image shape="circle" size="32" margin="0px" src={props.src} />
+            <Image shape="circle" size="32" margin="0px" style={{backgroundImage:"url(../shared/profile.PNG)"}} />
             <Text bold size="14px" margin="6px">
               {props.userId}
             </Text>
@@ -73,8 +90,7 @@ const Post = (props) => {
             <IconButton
               onClick={() => {
                 setIs_like(false);
-                console.log("Post75",postId, is_like);
-                dispatch(postActions.LikeToggleAPI(postId, is_like));
+                dispatch(postActions.LikeToggleAPI(postId, false));
                 
               }}
             >
@@ -84,7 +100,7 @@ const Post = (props) => {
             <IconButton
               onClick={() => {
                 setIs_like(true);
-                dispatch(postActions.likeToggleAPI(postId, is_like));
+                dispatch(postActions.LikeToggleAPI(postId, true));
               }}
             >
               <FavoriteBorderIcon />
@@ -103,7 +119,8 @@ const Post = (props) => {
 
         {/* 좋아요, 내용, 시간 */}
         <Text margin="0px 8px" bold size="14px" style={{ fontWeight: "600" }}>
-          좋아요 {is_like ? props.comment_cnt + 1 : props.comment_cnt}개
+          {/* 좋아요 {is_like ? likeNum + 1 :likeNum}개 */}
+          좋아요 {likeCnt}개
         </Text>
         <Div>
           <Text bold size="14px" margin="8px 8px">
@@ -144,6 +161,11 @@ const Border = styled.div`
   border-radius: 3px;
   margin-bottom: 20px;
   background-color: #fff;
+`;
+
+const Profile = styled.div`
+  width: 32;
+  border-radius: 50%;
 `;
 
 const Div = styled.div`
