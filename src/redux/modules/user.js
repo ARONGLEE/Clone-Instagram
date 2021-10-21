@@ -46,9 +46,12 @@ const setLoginDB = (id, pw) => {
       .then((res) => {
         console.log(res);
         //setCookie("token", res.data[2].token, 7);
-        setCookie("token", res.data.token, 5);
-        console.log(res.data.token);
+        //setCookie("token", res.data.token, 5);
+        //console.log(res.data.token);
+        localStorage.setItem("token", res.data.token);
         localStorage.setItem("userId", id);
+        //sessionStorage.setItem("token", res.data.token);
+        console.log(res.data.token);
         dispatch(setLogin({ id }));
         history.replace("/");
       })
