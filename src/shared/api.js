@@ -45,7 +45,56 @@ export const apis = {
   // Like
    like: (postId) => api.post("api/likes/{postId}", {
     param : postId
-   })
+   }),
     
   // Follow
+
+  // comments
+  AddComment: (postId, replyContent) => api.post(`/api/replyPost/${postId}`, {replyContent: replyContent}),
+  DelComment: (postId,commentId) => api.delete(`/api/replyPost/${postId}/${commentId}`),
+  // UpdateComment: (postId,commentId) => api.put(`/api/replyPost/${postId}/${commentId}`),
+
+  
 };
+
+
+
+/// comments
+const COMMENTLOAD = 'comment/LOAD';
+const COMMENTDELETE = 'comment/DELETE';
+const COMMENTCREATE = 'comment/CREATE';
+
+/// comments
+const loadComment = createAction(COMMENTLOAD, (comments) => ({comments}));
+const createComment = createAction(COMMENTCREATE, (index,newComment) => ({index,newComment}));
+const deleteComment = createAction(COMMENTDELETE, (index,commentId) => ({index,commentId}));
+
+
+const createCommentDB = (postId,comment,index) => {
+  return function(dispatch, getState, {history}){
+      apis
+      .AddComment(postId,comment)
+      .then((res) => {
+          const newComment = res.data
+          dispatch(createComment(index,newComment))
+          dispatch(loadBoardDB())
+          dispatch(detailArticleDB(postId))
+      }).catch((err) => {
+          console.log(err)
+      })
+  }
+}
+
+const deleteCommentDB = (postId,commentId,index) => {
+  return function(dispatch, getState, {history}){
+      apis
+      .DelComment(postId,commentId)
+      .then((res) => {
+          dispatch(deleteComment(index,commentId))
+          dispatch(loadBoardDB())
+          dispatch(detailArticleDB(postId))
+      }).catch((err) => {
+          console.log(err)
+      })
+  }
+}

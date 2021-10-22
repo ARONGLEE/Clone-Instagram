@@ -1,6 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "../elements/Grid";
 import styled from "styled-components";
+import { useDispatch, useSelector } from 'react-redux';
+import { apis } from "../shared/api";
 
 const CommentWrite = (props) => {
   const [comment_text, setComment_text] = useState("");
@@ -18,6 +20,14 @@ const CommentWrite = (props) => {
   const write = () => {
     console.log(comment_text);
   };
+
+  const dispatch = useDispatch();
+
+  const board_list = useSelector((state) => state.board.list);
+
+    useEffect(() => {
+        dispatch(apis.loadBoardDB());
+    },[])
 
   return (
     <React.Fragment>
