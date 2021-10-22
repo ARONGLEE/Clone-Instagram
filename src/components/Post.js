@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { Button, Grid, Image, Text } from "../elements";
 import Modal from "./Modal";
 import CommentWrite from "./CommentWrite";
+import { postActions } from "../redux/modules/post";
+import profile from "../shared/profile.PNG"
 
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
@@ -12,11 +14,61 @@ import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import SendIcon from "@mui/icons-material/Send";
 
-const Post = (props) => {
+
+const Post = React.memo((props) => {
+  // console.log("profile",profile)
   const dispatch = useDispatch();
+  const postId = props.postId
+  const likeCnt = props.likeCnt
+  console.log("likeCnt", likeCnt)
+  // const likeState2 = props.likeState
+  // console.log("likeState",likeState2)
+
+  const likeToggle = () => {
+    dispatch(postActions.LikeToggleAPI(postId, props.heartLike))
+  }
 
   const [modalOpen, setModalOpen] = React.useState(false);
-  const [like, setLike] = React.useState(false);
+  const [is_like, setIs_like] = React.useState(false);
+
+  // const [postId, setPostId] = React.useState(props.postId)
+
+  
+  // console.log("postId",props.postId)
+  // console.log("is_like",is_like)
+  // if (like) {
+  //   dispatch(postActions.likeToggleAPI(props.postId, like))
+  // const [likeState, setlikeState] = React.useState(false);
+
+  const post_like = useSelector((state) => state.post.post_like);
+  console.log("post_like.postId", post_like.postId)
+
+  let likeState = false;
+  for(let i=0; i<post_like.length; i++) {
+    // console.log("post_like",post_like[i].postId)
+    if (postId === post_like[i].postId) {
+      likeState = true;
+    }
+  }
+
+  // useEffect(()=>{
+  //   // let likeState = false;
+  //   for(let i=0; i<post_like.length; i++) {
+  //     // console.log("post_like",post_like[i].postId)
+  //     if (postId === post_like[i].postId) {
+  //       setlikeState(true);
+  //     } else {
+  //       setlikeState(false);
+  //     }
+  //   }
+  // }, [postId, post_like]);
+  
+  console.log(`${postId} likeState`,likeState)
+
+  // 댓글가져오기
+  const writeComment = useSelector((state) => state.comment.list);
+
+  console.log("props.likeState", props.likeState)
 
   return (
     <React.Fragment>
@@ -29,20 +81,20 @@ const Post = (props) => {
           padding="5px 4px 5px 8px"
         >
           <Grid is_flex width="auto">
-            <Image shape="circle" size="32" margin="0px" src={props.src} />
+            <Profile />
             <Text bold size="14px" margin="6px">
               {props.userId}
             </Text>
           </Grid>
           <Button
-            width="20px"
-            size="14px"
-            padding="0px"
+            width="40px"
+            size="20px"
+            padding="8px"
             bg="#fff"
             color="#000"
             className="openModalBtn"
             _onClick={() => {
-              setModalOpen(true);
+              setModalOpen(true); 
             }}
           >
             ···
@@ -56,24 +108,50 @@ const Post = (props) => {
 
         {/* 하트, 상세페이지, 보내기 아이콘 */}
         <Grid padding="3px">
-          {like ? (
-            <IconButton
+
+          {likeState ?
+            (<IconButton
               onClick={() => {
-                setLike(false);
+                // setIs_like(false);
+                dispatch(postActions.deleteToggleAPI(postId, false));
               }}
             >
-              <FavoriteIcon color="success" />
-            </IconButton>
-          ) : (
-            <IconButton
+              <FavoriteIcon style={{color:"red"}} />
+            </IconButton>)
+            :
+            (<IconButton
               onClick={() => {
-                setLike(true);
+                // setIs_like(true);
+                dispatch(postActions.addLikeAPI(postId, true));
               }}
             >
               <FavoriteBorderIcon />
-            </IconButton>
-          )}
+            </IconButton>)
+          }
 
+       
+
+          {/* {likeState ?
+            (<IconButton
+              onClick={() => {
+                // setIs_like(false);
+                dispatch(postActions.LikeToggleAPI(postId, false));
+              }}
+            >
+              <FavoriteIcon style={{color:"red"}} />
+            </IconButton>)
+            :
+            (<IconButton
+              onClick={() => {
+                // setIs_like(true);
+                dispatch(postActions.LikeToggleAPI(postId, true));
+              }}
+            >
+              <FavoriteBorderIcon />
+            </IconButton>)
+          } */}
+          
+          
           <IconButton>
             <ModeCommentIcon />
           </IconButton>
@@ -81,11 +159,13 @@ const Post = (props) => {
           <IconButton>
             <SendIcon />
           </IconButton>
+
         </Grid>
 
         {/* 좋아요, 내용, 시간 */}
         <Text margin="0px 8px" bold size="14px" style={{ fontWeight: "600" }}>
-          좋아요 {like ? props.comment_cnt + 1 : props.comment_cnt}개
+          좋아요 {is_like ? likeCnt + 1 :likeCnt}개
+          {/* 좋아요 {likeCnt}개 */}
         </Text>
         <Div>
           <Text bold size="14px" margin="8px 8px">
@@ -97,13 +177,18 @@ const Post = (props) => {
         </Div>
 
         {/* 댓글 */}
-        <CommentWrite />
+        {/* {writeComment.map((p, idx) => <div key={p.id}> {p[idx]} </div>)} */}
+        {writeComment}
+
+        {/* 댓글쓰기 */}
+        <CommentWrite postId={postId} />
       </Border>
 
       {modalOpen && <Modal setOpenModal={setModalOpen} />}
+
     </React.Fragment>
   );
-};
+});
 
 // 부모에서 프롭스 못받을때 오류나 화면 깨짐 방지
 Post.defaultProps = {
@@ -126,6 +211,18 @@ const Border = styled.div`
   border-radius: 3px;
   margin-bottom: 20px;
   background-color: #fff;
+`;
+
+const Profile = styled.div`
+  background-image: url("https://www.mokhtsr.com/wp-content/uploads/2019/10/3.jpg");
+  /* background-color: red; */
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background-color: cover;
+  background-position: center;
+	background-size: cover;
+  margin: 4px;
 `;
 
 const Div = styled.div`

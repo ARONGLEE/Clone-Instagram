@@ -31,12 +31,12 @@ api.interceptors.request.use(
 export const apis = {
   // User
   login: (id, pw) =>
-    api.post("api/users/login", {
+    api.post("/api/users/login", {
       loginId: id,
       userPw: pw,
     }),
   signup: (id, pw, name, nick) =>
-    api.post("api/users/register", {
+    api.post("/api/users/register", {
       userId: id,
       userPw: pw,
       userName: name,
@@ -45,7 +45,7 @@ export const apis = {
 
   //Post
   // 게시물 불러오기
-  getPost: () => api.get("api/posts"),
+  getPost: () => api.get("/api/posts"),
   // 게시물 작성하기
   addPost: (contents) => api.post("", contents),
   // 게시물 수정하기
@@ -56,16 +56,11 @@ export const apis = {
   detailPost: (postId) => api.get(""),
 
   // Like
-  like: (postId) =>
-    api.post("api/likes/{postId}", {
-      param: postId,
-    }),
+  addLike: (postId) => api.post(`/api/likes/${postId}`),
+  deleteLike: (postId) => api.delete(`/api/likes/${postId}`),
 
   // comments
   getComment: (postId) => api.get(`/api/replyList/${postId}`),
-  AddComment: (postId, replyContent) =>
-    api.post(`/api/replyPost/${postId}`, { replyContent: replyContent }),
-  DelComment: (postId, commentId) =>
-    api.delete(`/api/replyPost/${postId}/${commentId}`),
-  // UpdateComment: (postId,commentId) => api.put(`/api/replyPost/${postId}/${commentId}`),
+  addComment: (postId, comment) =>
+    api.post(`/api/replyPost/${postId}`, { comment: comment }),
 };
