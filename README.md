@@ -1,6 +1,6 @@
 #  :star: 인스타그램 클론코딩
 링크 http://happyarong.shop.s3-website.ap-northeast-2.amazonaws.com/login  
-https://추후 영상링크
+영상링크 https://www.youtube.com/watch?v=cfT0ilynghU
 
 ## 프로젝트 소개
 클로닝 대상 서비스
