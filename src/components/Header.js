@@ -33,7 +33,7 @@ const Header = (props) => {
           }}
         >
           <Grid is_flex center>
-            <img src={imgLogo} style={{ width: "103px", margin: "7px 0px" }} />
+            <img src={imgLogo} style={{ width: "103px" }} />
             <Grid
               is_flex
               border="1px solid #DCDCDC"
@@ -47,7 +47,7 @@ const Header = (props) => {
               <Text color="#8e8e8e">검색</Text>
             </Grid>
             <Grid is flex width="260px" justifyContent="space-evenly">
-              <MdHomeFilled style={{ fontSize: "22px", margin: "7px 5px" }} />
+              <MdHomeFilled style={{ fontSize: "22px", margin: "5px 5px" }} />
               {/* <RiSendPlaneFill
                 style={{ fontSize: "22px", margin: "7px 10px" }}
               /> */}
@@ -56,16 +56,16 @@ const Header = (props) => {
                   history.push("/write");
                 }}
                 cursor="pointer"
-                style={{ fontSize: "22px", margin: "7px 5px" }}
+                style={{ fontSize: "22px", margin: "5px 5px" }}
               />
-              <TiCompass style={{ fontSize: "22px", margin: "7px 5px" }} />
-              <IoMdHeartEmpty style={{ fontSize: "22px", margin: "7px 5px" }} />
+              <TiCompass style={{ fontSize: "22px", margin: "5px 5px" }} />
+              <IoMdHeartEmpty style={{ fontSize: "22px", margin: "5px 5px" }} />
               <img
                 src={imgProfile}
-                style={{ width: "22px", margin: "7px 5px" }}
+                style={{ width: "22px", margin: "5px 5px" }}
               />
               <GrLogout
-                style={{ fontSize: "22px", margin: "7px 5px" }}
+                style={{ fontSize: "22px", margin: "5px 5px" }}
                 onClick={() => {
                   dispatch(userCreators.logOutDB());
                 }}

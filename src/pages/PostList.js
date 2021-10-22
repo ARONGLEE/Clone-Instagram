@@ -15,20 +15,22 @@ const PostList = (props) => {
     dispatch(postActions.getPostAPI());
   }, []);
 
-  const user_info = useSelector((state) => state.user.user);
-  //console.log(user_info);
+  const user_info = localStorage.getItem("nick");
+  //console.log("aaa", user_info);
 
   return (
     <React.Fragment>
       <Header />
-      {post_list.map((p, idx) => {
-        //console.log(p);
-        if (p.userId === user_info?.id) {
-          return <Post key={p.id} {...p} is_me />;
-        } else {
-          return <Post key={p.id} {...p} />;
-        }
-      })}
+      <div style={{ marginTop: "30px" }}>
+        {post_list.map((p, idx) => {
+          //  console.log("bbb", p.userId);
+          if (p.userId === user_info) {
+            return <Post key={p.id} {...p} is_me />;
+          } else {
+            return <Post key={p.id} {...p} />;
+          }
+        })}
+      </div>
     </React.Fragment>
   );
 };
