@@ -7,16 +7,15 @@ https://추후 영상링크
 - Instargram
 - link : https://www.instagram.com/
 - 선택 이유 파일업로드와 좋아요 기능을 구현해보는 것을 목적으로 삼고 스코프를 합리적으로 가져가기 위해 웹서비스를 탐색하던 중 웹버전 인스타그램이 적합하다고 판단함
----
+
 ### 구현기능
 - 로그인 (JWT 토큰) 구현
 - 게시글 CRUD 구현
 - 게시글 좋아요 기능 구현
 - 댓글 기능 구현
----
+
 ## 프로젝트 기간
 2021/10/18 ~ 2021/10/22
----
 
 ## 1. Developers
 Backend (Node.js)  
@@ -33,7 +32,6 @@ Frontend (React)
 https://docs.google.com/spreadsheets/d/1C2EIqLhK7BeodXyVxayOFfIX0kb5Aue_fLQQk4xZhFM/edit?usp=sharing
 
 ## 3. 기술스택
----
 종류 | 이름 
 :---:|---
 개발언어 | JavaScript 
