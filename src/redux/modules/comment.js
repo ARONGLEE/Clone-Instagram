@@ -9,12 +9,12 @@ const COMMENTCREATE = 'comment/CREATE';
 
 /// comments
 const loadComment = createAction(COMMENTLOAD, (comments) => ({comments}));
-const createComment = createAction(COMMENTCREATE, (index,newComment) => ({index,newComment}));
+const createComment = createAction(COMMENTCREATE, (comment) => ({comment}));
 const deleteComment = createAction(COMMENTDELETE, (index,commentId) => ({index,commentId}));
 
 
 const initialState = {
-	list:{},
+	list:[],
 }
 
 const createCommentDB = (postId, comment) => {
@@ -27,6 +27,8 @@ const createCommentDB = (postId, comment) => {
 				.then((res) => {
 					console.log(res);
 					console.log(res.data.result.comment);
+					const comment = res.data.result.comment
+					dispatch(createComment(comment))
 						// const newComment = res.data
 						// dispatch(createComment(index,newComment))
 						// dispatch(loadBoardDB())
@@ -57,10 +59,10 @@ export default handleActions(
   {
     [COMMENTLOAD]: (state, action) =>
       produce(state, (draft) => {
-        draft.list[action.payload.post_id] = action.payload.comment_list;
+        // draft.list[action.payload.post_id] = action.payload.comment_list;
       }),
     [COMMENTCREATE]: (state, action) => produce(state, (draft) => {
-      draft.list[action.payload.post_id].unshift(action.payload.comment);
+			draft.list.unshift(action.payload.comment);
     }),
   },
   initialState

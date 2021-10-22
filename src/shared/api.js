@@ -57,12 +57,7 @@ export const apis = {
 
   // Like
    addLike: (postId) => api.post(`/api/likes/${postId}`),
-<<<<<<< HEAD
-   delteLike: (postId) => api.delete(`/api/likes/${postId}`),
-   likeNum: (postId) => api.get(`/api/likes/${postId}`),
-=======
    deleteLike: (postId) => api.delete(`/api/likes/${postId}`),
->>>>>>> 929a251 (최신화 하려고 커밋함)
     
   // Follow
 

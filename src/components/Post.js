@@ -30,24 +30,18 @@ const Post = React.memo((props) => {
 
   const [modalOpen, setModalOpen] = React.useState(false);
   const [is_like, setIs_like] = React.useState(false);
-<<<<<<< HEAD
-  const [postId, setPostId] = React.useState(props.postId)
+
+  // const [postId, setPostId] = React.useState(props.postId)
 
   
-<<<<<<< HEAD
-  
-  console.log("postId",postId)
-  console.log("is_like",is_like)
-=======
   // console.log("postId",props.postId)
   // console.log("is_like",is_like)
->>>>>>> 0044a47 (최신화 떄문에 커밋)
   // if (like) {
   //   dispatch(postActions.likeToggleAPI(props.postId, like))
-=======
   // const [likeState, setlikeState] = React.useState(false);
 
   const post_like = useSelector((state) => state.post.post_like);
+  console.log("post_like.postId", post_like.postId)
 
   let likeState = false;
   for(let i=0; i<post_like.length; i++) {
@@ -71,13 +65,10 @@ const Post = React.memo((props) => {
   
   console.log(`${postId} likeState`,likeState)
 
-  // const dislike = () => {
-  //   dispatch(postActions.LikeToggleAPI(postId, false));
-  // }
-  // const like = () => {
-  //   dispatch(postActions.LikeToggleAPI(postId, true))
->>>>>>> 929a251 (최신화 하려고 커밋함)
-  // }
+  // 댓글가져오기
+  const writeComment = useSelector((state) => state.comment.list);
+
+  console.log("props.likeState", props.likeState)
 
   return (
     <React.Fragment>
@@ -138,6 +129,8 @@ const Post = React.memo((props) => {
             </IconButton>)
           }
 
+       
+
           {/* {likeState ?
             (<IconButton
               onClick={() => {
@@ -184,7 +177,11 @@ const Post = React.memo((props) => {
         </Div>
 
         {/* 댓글 */}
-        <CommentWrite />
+        {/* {writeComment.map((p, idx) => <div key={p.id}> {p[idx]} </div>)} */}
+        {writeComment}
+
+        {/* 댓글쓰기 */}
+        <CommentWrite postId={postId} />
       </Border>
 
       {modalOpen && <Modal setOpenModal={setModalOpen} />}

@@ -10,8 +10,8 @@ const CommentWrite = (props) => {
   const [comment_text, setComment_text] = useState("");
   const [able, setAble] = useState(false);
 
-  // const aa = useSelector((state) => state.comment.list);
-  // console.log("aa", aa);
+  const writeComment = useSelector((state) => state.comment.list);
+  console.log("writeComment", writeComment);
  
   console.log("props.postId",props.postId);
 
@@ -26,7 +26,8 @@ const CommentWrite = (props) => {
 
   const write = () => {
     // console.log(comment_text);
-    dispatch(commentActions.createCommentDB(1,comment_text))
+    dispatch(commentActions.createCommentDB(props.postId, comment_text))
+    setComment_text("");
   };
 
 
