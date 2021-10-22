@@ -6,34 +6,35 @@ import { Button, Grid, Image, Text } from "../elements";
 import Modal from "./Modal";
 import CommentWrite from "./CommentWrite";
 import { postActions } from "../redux/modules/post";
-import profile from "../shared/profile.PNG"
+import profile from "../shared/profile.PNG";
 
 import IconButton from "@mui/material/IconButton";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import SendIcon from "@mui/icons-material/Send";
-
+import { MdOutlineDeleteOutline } from "react-icons/md";
+import CommentList from "./CommentList";
+import { commentActions } from "../redux/modules/comment";
 
 const Post = React.memo((props) => {
   // console.log("profile",profile)
   const dispatch = useDispatch();
-  const postId = props.postId
-  const likeCnt = props.likeCnt
-  console.log("likeCnt", likeCnt)
+  const postId = props.postId;
+  const likeCnt = props.likeCnt;
+  console.log("likeCnt", likeCnt);
   // const likeState2 = props.likeState
   // console.log("likeState",likeState2)
 
   const likeToggle = () => {
-    dispatch(postActions.LikeToggleAPI(postId, props.heartLike))
-  }
+    dispatch(postActions.LikeToggleAPI(postId, props.heartLike));
+  };
 
   const [modalOpen, setModalOpen] = React.useState(false);
   const [is_like, setIs_like] = React.useState(false);
 
   // const [postId, setPostId] = React.useState(props.postId)
 
-  
   // console.log("postId",props.postId)
   // console.log("is_like",is_like)
   // if (like) {
@@ -41,10 +42,10 @@ const Post = React.memo((props) => {
   // const [likeState, setlikeState] = React.useState(false);
 
   const post_like = useSelector((state) => state.post.post_like);
-  console.log("post_like.postId", post_like.postId)
+  console.log("post_like.postId", post_like.postId);
 
   let likeState = false;
-  for(let i=0; i<post_like.length; i++) {
+  for (let i = 0; i < post_like.length; i++) {
     // console.log("post_like",post_like[i].postId)
     if (postId === post_like[i].postId) {
       likeState = true;
@@ -62,13 +63,29 @@ const Post = React.memo((props) => {
   //     }
   //   }
   // }, [postId, post_like]);
-  
-  console.log(`${postId} likeState`,likeState)
+
+  console.log(`${postId} likeState`, likeState);
 
   // 댓글가져오기
   const writeComment = useSelector((state) => state.comment.list);
 
-  console.log("props.likeState", props.likeState)
+  console.log("props.likeState", props.likeState);
+
+  const ip = "http://13.125.63.44";
+  const img = props.postImg;
+  const imageUrl = ip + img;
+
+  const deletePost = () => {
+    dispatch(postActions.deletePostDB(props.postId));
+    // console.log(props.postId);
+  };
+
+  const comment_list = useSelector((state) => state.comment.comment_list);
+  //console.log(comment_list);
+
+  React.useEffect(() => {
+    dispatch(commentActions.getCommentDB(props.postId));
+  }, []);
 
   return (
     <React.Fragment>
@@ -86,50 +103,56 @@ const Post = React.memo((props) => {
               {props.userId}
             </Text>
           </Grid>
-          <Button
-            width="40px"
-            size="20px"
-            padding="8px"
-            bg="#fff"
-            color="#000"
-            className="openModalBtn"
-            _onClick={() => {
-              setModalOpen(true); 
-            }}
-          >
-            ···
-          </Button>
+          <Grid is_flex justifyContent="flex-end" width="25%" margin="0px 10px">
+            {props.is_me && (
+              <MdOutlineDeleteOutline
+                style={{ fontSize: "16px", margin: "0px 5px" }}
+                cursor="pointer"
+                onClick={deletePost}
+              />
+            )}
+            <Button
+              width="20px"
+              size="16px"
+              padding="0px"
+              bg="#fff"
+              color="#000"
+              className="openModalBtn"
+              _onClick={() => {
+                setModalOpen(true);
+              }}
+            >
+              ···
+            </Button>
+          </Grid>
         </Grid>
 
         {/* 사진 */}
         <Grid>
-          <Image shape="rectangle" src={props.postImg} />
+          <Image shape="rectangle" src={imageUrl} />
         </Grid>
 
         {/* 하트, 상세페이지, 보내기 아이콘 */}
         <Grid padding="3px">
-
-          {likeState ?
-            (<IconButton
+          {likeState ? (
+            <IconButton
               onClick={() => {
                 // setIs_like(false);
                 dispatch(postActions.deleteToggleAPI(postId, false));
               }}
             >
-              <FavoriteIcon style={{color:"red"}} />
-            </IconButton>)
-            :
-            (<IconButton
+              <FavoriteIcon style={{ color: "red" }} />
+            </IconButton>
+          ) : (
+            <IconButton
               onClick={() => {
                 // setIs_like(true);
                 dispatch(postActions.addLikeAPI(postId, true));
               }}
             >
               <FavoriteBorderIcon />
-            </IconButton>)
-          }
-
-       
+            </IconButton>
+          )}
 
           {/* {likeState ?
             (<IconButton
@@ -150,8 +173,7 @@ const Post = React.memo((props) => {
               <FavoriteBorderIcon />
             </IconButton>)
           } */}
-          
-          
+
           <IconButton>
             <ModeCommentIcon />
           </IconButton>
@@ -159,20 +181,26 @@ const Post = React.memo((props) => {
           <IconButton>
             <SendIcon />
           </IconButton>
-
         </Grid>
-
         {/* 좋아요, 내용, 시간 */}
         <Text margin="0px 8px" bold size="14px" style={{ fontWeight: "600" }}>
-          좋아요 {is_like ? likeCnt + 1 :likeCnt}개
-          {/* 좋아요 {likeCnt}개 */}
+          좋아요 {is_like ? likeCnt + 1 : likeCnt}개{/* 좋아요 {likeCnt}개 */}
         </Text>
         <Div>
-          <Text bold size="14px" margin="8px 8px">
+          <Text bold size="12px" margin="8px 8px">
             {props.userId}
           </Text>
-          <Text bold size="14px" margin="8px 8px">
+          <Text size="14px" margin="7px 0px">
             {props.postContents}
+          </Text>
+        </Div>
+        {/* <CommentList /> */}
+        <Div>
+          <Text bold size="12px" margin="8px 8px">
+            {props.userId}
+          </Text>
+          <Text size="14px" margin="7px 0px">
+            {comment_list}
           </Text>
         </Div>
 
@@ -185,7 +213,6 @@ const Post = React.memo((props) => {
       </Border>
 
       {modalOpen && <Modal setOpenModal={setModalOpen} />}
-
     </React.Fragment>
   );
 });
@@ -196,7 +223,7 @@ Post.defaultProps = {
   // user_profile: 'https://filminvalle.com/wp-content/uploads/2019/10/User-Icon.png'
   postImg:
     "https://hddesktopwallpapers.in/wp-content/uploads/2015/09/wheat-field-picture.jpg",
-	postContents: "배경 내용이 들어가요",
+  postContents: "배경 내용이 들어가요",
   comment_cnt: 0,
   insert_dt: "2021-09-30 10:00:00",
   is_like: true,
@@ -221,7 +248,7 @@ const Profile = styled.div`
   border-radius: 50%;
   background-color: cover;
   background-position: center;
-	background-size: cover;
+  background-size: cover;
   margin: 4px;
 `;
 

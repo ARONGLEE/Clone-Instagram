@@ -22,19 +22,6 @@ const Input = (props) => {
     bg,
   } = props;
 
-  if (multiLine) {
-    return (
-      <Grid>
-        <Text margin="0px">{label && <Text margin="0px">{label}</Text>}</Text>
-        <ElTextarea
-          rows={10}
-          value={value}
-          placeholder={placeholder}
-          onChange={_onChange}
-        ></ElTextarea>
-      </Grid>
-    );
-  }
   //아영 - 추가
   const styles = {
     width: width,
@@ -45,6 +32,21 @@ const Input = (props) => {
     color: color,
     bg: bg,
   };
+
+  if (multiLine) {
+    return (
+      <Grid>
+        <Text margin="0px">{label && <Text margin="0px">{label}</Text>}</Text>
+        <ElTextarea
+          {...styles}
+          rows={10}
+          value={value}
+          placeholder={placeholder}
+          onChange={_onChange}
+        ></ElTextarea>
+      </Grid>
+    );
+  }
 
   return (
     <React.Fragment>

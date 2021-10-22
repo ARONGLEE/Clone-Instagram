@@ -123,11 +123,9 @@ const PostWrite = (props) => {
           {/* </Grid> */}
           <Grid padding="40px 0">
             <Input
-              type="text"
-              name="title"
+              multiLine
               placeholder="문구입력..."
-              width="100%"
-              height="150px"
+              value={content}
               _onChange={(e) => {
                 setContent(e.target.value);
               }}

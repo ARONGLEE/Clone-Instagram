@@ -51,21 +51,16 @@ export const apis = {
   // 게시물 수정하기
   //editPost: (id, contents) => api.put("", contents),
   // 게시물 삭제하기
-  delPost: (postId) => api.delete(""),
+  delPost: (postId) => api.delete(`api/posts/${postId}/delete`),
   // 게시물 상세 페이지
   detailPost: (postId) => api.get(""),
 
   // Like
-   addLike: (postId) => api.post(`/api/likes/${postId}`),
-   deleteLike: (postId) => api.delete(`/api/likes/${postId}`),
-    
-  // Follow
+  addLike: (postId) => api.post(`/api/likes/${postId}`),
+  deleteLike: (postId) => api.delete(`/api/likes/${postId}`),
 
   // comments
-  addComment: (postId, comment ) => api.post(`/api/replyPost/${postId}`, {comment:comment}),
-  DelComment: (postId,commentId) => api.delete(`/api/replyPost/${postId}/${commentId}`),
-  // UpdateComment: (postId,commentId) => api.put(`/api/replyPost/${postId}/${commentId}`),
-
-  
+  getComment: (postId) => api.get(`/api/replyList/${postId}`),
+  addComment: (postId, comment) =>
+    api.post(`/api/replyPost/${postId}`, { comment: comment }),
 };
-

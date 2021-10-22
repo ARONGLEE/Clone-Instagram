@@ -3,7 +3,7 @@ import { createAction, handleActions } from "redux-actions";
 //immer 가져오기
 import { produce } from "immer";
 //Cookie 가져오기
-//import { deleteCookie, setCookie } from "../../shared/Cookie";
+import { deleteCookie, setCookie } from "../../shared/Cookie";
 //axios 가져오기
 import { apis } from "../../shared/api";
 
@@ -49,9 +49,10 @@ const setLoginDB = (id, pw) => {
         //setCookie("token", res.data.token, 5);
         localStorage.setItem("token", res.data.token);
         console.log(res.data.token);
-        //localStorage.setItem("userId", id);
+        localStorage.setItem("nick", id);
+        //sessionStorage.setItem("userId", id);
         //sessionStorage.setItem("token", res.data.token);
-        console.log(res.data.token);
+        console.log(id);
         dispatch(setLogin({ id }));
         history.replace("/");
       })
@@ -66,6 +67,7 @@ const logOutDB = () => {
   return function (dispatch, getState, { history }) {
     //deleteCookie("token");
     localStorage.removeItem("token");
+    localStorage.removeItem("nick");
     dispatch(logOut());
     history.replace("/login");
   };
@@ -75,6 +77,7 @@ const logOutDB = () => {
 const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
     const tokenCheck = localStorage.getItem("token");
+    console.log(tokenCheck);
     if (tokenCheck !== "undefined" || tokenCheck !== null) {
       dispatch(setLogin({ id: tokenCheck }));
     } else {

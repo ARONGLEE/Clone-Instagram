@@ -5,7 +5,7 @@ import styled from "styled-components";
 
 const Modal = (props) => {
   const { setOpenModal } = props;
-
+  console.log("modal", props);
   // const list = ['신고', '팔로우 취소', '게시물로 이동', '공유 대상...', '링크 복사', '퍼가기', '취소'];
 
   // 모달 오버레이에서 스크롤 방지
@@ -26,9 +26,7 @@ const Modal = (props) => {
     <React.Fragment>
       <ModalBackground class="modal-background" id="modal">
         <ModalContainer class="modal">
-          {props.is_me && (
-            <Button style={{ borderRadius: "10px 10px 0 0" }}>삭제</Button>
-          )}
+          <Button style={{ borderRadius: "10px 10px 0 0" }}>신고</Button>
           <Button>팔로우 취소</Button>
           <Button>게시물로 이동</Button>
           <Button>공유 대상...</Button>
