@@ -25,4 +25,4 @@ yarn-error.log*
 # 올리지 말 파일
 src/components/Heart.js
 src/index.js
-src/shared/App.js
+# src/shared/App.js
