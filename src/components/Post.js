@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,22 +15,22 @@ import ModeCommentIcon from "@mui/icons-material/ModeComment";
 import SendIcon from "@mui/icons-material/Send";
 
 
-const Post = (props) => {
+const Post = React.memo((props) => {
   // console.log("profile",profile)
   const dispatch = useDispatch();
   const postId = props.postId
   const likeCnt = props.likeCnt
   console.log("likeCnt", likeCnt)
+  // const likeState2 = props.likeState
+  // console.log("likeState",likeState2)
 
-  React.useEffect(() => {
-    dispatch(postActions.likeNumAPI(postId));
-  }, []);
-
-  // const likeCnt = useSelector((state) => state.post.list[postId].likeCnt);
-  // console.log("likeCnt",likeCnt)
+  const likeToggle = () => {
+    dispatch(postActions.LikeToggleAPI(postId, props.heartLike))
+  }
 
   const [modalOpen, setModalOpen] = React.useState(false);
   const [is_like, setIs_like] = React.useState(false);
+<<<<<<< HEAD
   const [postId, setPostId] = React.useState(props.postId)
 
   
@@ -44,8 +44,40 @@ const Post = (props) => {
 >>>>>>> 0044a47 (최신화 떄문에 커밋)
   // if (like) {
   //   dispatch(postActions.likeToggleAPI(props.postId, like))
-  // }
+=======
+  // const [likeState, setlikeState] = React.useState(false);
+
+  const post_like = useSelector((state) => state.post.post_like);
+
+  let likeState = false;
+  for(let i=0; i<post_like.length; i++) {
+    // console.log("post_like",post_like[i].postId)
+    if (postId === post_like[i].postId) {
+      likeState = true;
+    }
+  }
+
+  // useEffect(()=>{
+  //   // let likeState = false;
+  //   for(let i=0; i<post_like.length; i++) {
+  //     // console.log("post_like",post_like[i].postId)
+  //     if (postId === post_like[i].postId) {
+  //       setlikeState(true);
+  //     } else {
+  //       setlikeState(false);
+  //     }
+  //   }
+  // }, [postId, post_like]);
   
+  console.log(`${postId} likeState`,likeState)
+
+  // const dislike = () => {
+  //   dispatch(postActions.LikeToggleAPI(postId, false));
+  // }
+  // const like = () => {
+  //   dispatch(postActions.LikeToggleAPI(postId, true))
+>>>>>>> 929a251 (최신화 하려고 커밋함)
+  // }
 
   return (
     <React.Fragment>
@@ -58,15 +90,15 @@ const Post = (props) => {
           padding="5px 4px 5px 8px"
         >
           <Grid is_flex width="auto">
-            <Image shape="circle" size="32" margin="0px" style={{backgroundImage:"url(../shared/profile.PNG)"}} />
+            <Profile />
             <Text bold size="14px" margin="6px">
               {props.userId}
             </Text>
           </Grid>
           <Button
-            width="20px"
-            size="14px"
-            padding="0px"
+            width="40px"
+            size="20px"
+            padding="8px"
             bg="#fff"
             color="#000"
             className="openModalBtn"
@@ -86,27 +118,47 @@ const Post = (props) => {
         {/* 하트, 상세페이지, 보내기 아이콘 */}
         <Grid padding="3px">
 
-          {is_like ? (
-            <IconButton
+          {likeState ?
+            (<IconButton
               onClick={() => {
-                setIs_like(false);
-                dispatch(postActions.LikeToggleAPI(postId, false));
-                
+                // setIs_like(false);
+                dispatch(postActions.deleteToggleAPI(postId, false));
               }}
             >
-              <FavoriteIcon color="success" />
-            </IconButton>
-          ) : (
-            <IconButton
+              <FavoriteIcon style={{color:"red"}} />
+            </IconButton>)
+            :
+            (<IconButton
               onClick={() => {
-                setIs_like(true);
+                // setIs_like(true);
+                dispatch(postActions.addLikeAPI(postId, true));
+              }}
+            >
+              <FavoriteBorderIcon />
+            </IconButton>)
+          }
+
+          {/* {likeState ?
+            (<IconButton
+              onClick={() => {
+                // setIs_like(false);
+                dispatch(postActions.LikeToggleAPI(postId, false));
+              }}
+            >
+              <FavoriteIcon style={{color:"red"}} />
+            </IconButton>)
+            :
+            (<IconButton
+              onClick={() => {
+                // setIs_like(true);
                 dispatch(postActions.LikeToggleAPI(postId, true));
               }}
             >
               <FavoriteBorderIcon />
-            </IconButton>
-          )}
-
+            </IconButton>)
+          } */}
+          
+          
           <IconButton>
             <ModeCommentIcon />
           </IconButton>
@@ -119,8 +171,8 @@ const Post = (props) => {
 
         {/* 좋아요, 내용, 시간 */}
         <Text margin="0px 8px" bold size="14px" style={{ fontWeight: "600" }}>
-          {/* 좋아요 {is_like ? likeNum + 1 :likeNum}개 */}
-          좋아요 {likeCnt}개
+          좋아요 {is_like ? likeCnt + 1 :likeCnt}개
+          {/* 좋아요 {likeCnt}개 */}
         </Text>
         <Div>
           <Text bold size="14px" margin="8px 8px">
@@ -136,9 +188,10 @@ const Post = (props) => {
       </Border>
 
       {modalOpen && <Modal setOpenModal={setModalOpen} />}
+
     </React.Fragment>
   );
-};
+});
 
 // 부모에서 프롭스 못받을때 오류나 화면 깨짐 방지
 Post.defaultProps = {
@@ -164,8 +217,15 @@ const Border = styled.div`
 `;
 
 const Profile = styled.div`
-  width: 32;
+  background-image: url("https://www.mokhtsr.com/wp-content/uploads/2019/10/3.jpg");
+  /* background-color: red; */
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
+  background-color: cover;
+  background-position: center;
+	background-size: cover;
+  margin: 4px;
 `;
 
 const Div = styled.div`

@@ -15,7 +15,7 @@ const DELETE_POST = "DELETE_POST";
 const LIKE_TOGGLE = "LIKE_TOGGLE";
 const LIKE_NUM = "LIKE_NUM";
 
-const getPost = createAction(GET_POST, (post_list) => ({ post_list }));
+const getPost = createAction(GET_POST, (post_list, post_like) => ({ post_list, post_like }));
 const addPost = createAction(ADD_POST, (post) => ({ post }));
 const editPost = createAction(EDIT_POST, (post_id, post) => ({
   post_id,
@@ -24,16 +24,17 @@ const editPost = createAction(EDIT_POST, (post_id, post) => ({
 const deletePost = createAction(DELETE_POST, (post_id) => ({ post_id }));
 
 // 좋아요 토글 액션 생성자
-const likeToggle = createAction(LIKE_TOGGLE, (postId, is_like = null) => ({
+const likeToggle = createAction(LIKE_TOGGLE, (postId, likeState = null) => ({
 	postId,
-  is_like,
+  likeState,
 }));
 
-const likeNumber = createAction(LIKE_NUM, (likeNum) => ({ likeNum }));
 
 // 초기값
 const initialState = {
 	list: [],
+	post_like: [],
+	likeState: false,
 };
 
 
@@ -79,7 +80,9 @@ const getPostAPI = () => {
 >>>>>>> 0044a47 (최신화 떄문에 커밋)
         // console.log(res.data.result);
         const post_list = res.data.result;
-        dispatch(getPost(post_list));
+				const post_like = res.data.likes;
+        dispatch(getPost(post_list, post_like));
+				console.log("post_like", post_like)
       })
       .catch((err) => {
         console.log(err);
@@ -89,25 +92,61 @@ const getPostAPI = () => {
 
 
 
-const LikeToggleAPI = (postId, is_like) => {
+// const addLikeAPI = (postId, likeState) => {
+// 	return function (dispatch, getState, {history}) {
+// 		console.log("likeState", likeState)
+// 		apis
+// 			.addLike(postId)
+// 			.then((res) => {
+// 				// console.log(res);
+// 				// window.location.reload();
+// 				dispatch(likeToggle(postId, likeState))
+// 			})
+// 			.catch((err) => {
+// 				console.log(err)
+// 			});
+// 		}
+// }
+
+
+// const deleteToggleAPI = (postId, likeState) => {
+// 	return function (dispatch, getState, {history}) {
+// 		console.log("likeState", likeState)
+// 		apis
+// 			.deleteLike(postId)
+// 			.then((res) => {
+// 				// console.log(res);
+// 				// window.location.reload();
+// 				dispatch(likeToggle(postId, likeState))
+// 			})
+// 			.catch((err) => {
+// 				console.log(err)
+// 			});
+// 		}
+// }
+
+
+const LikeToggleAPI = (postId, likeState) => {
 	return function (dispatch, getState, {history}) {
-		console.log("is_like", is_like)
-		if (is_like) {
+		console.log("likeState", likeState)
+		if (likeState) {
 			apis
 				.addLike(postId)
 				.then((res) => {
 					// console.log(res);
-					dispatch(likeToggle(postId, is_like))
+					dispatch(likeToggle(postId, likeState))
+					window.location.reload();
 				})
 				.catch((err) => {
 					console.log(err)
 				});
 		} else {
 			apis
-				.delteLike(postId)
+				.deleteLike(postId)
 				.then((res) => {
 					// console.log(res);
-					dispatch(likeToggle(postId, is_like))
+					dispatch(likeToggle(postId, likeState))
+					
 				})
 				.catch((err) => {
 					console.log(err)
@@ -120,6 +159,7 @@ const LikeToggleAPI = (postId, is_like) => {
 <<<<<<< HEAD
 =======
 
+<<<<<<< HEAD
 const likeNumAPI = (postId) => {
 	return function (dispatch, getState, {history}) {
 		// const post_list = getState().post.list;
@@ -141,28 +181,24 @@ const likeNumAPI = (postId) => {
 >>>>>>> 0044a47 (최신화 떄문에 커밋)
 
 
+=======
+>>>>>>> 929a251 (최신화 하려고 커밋함)
 
 // 리듀서
 export default handleActions(
 	{
 		[GET_POST]: (state, action) => produce(state, (draft) => {
 			draft.list = action.payload.post_list;
+			draft.post_like = action.payload.post_like;
 		}),
 
 		[LIKE_TOGGLE]: (state, action) => 
 		produce(state, (draft) => {
 			// 배열에서 몇 번째에 있는 지 찾은 다음, is_like를 action에서 가져온 값으로 바꾸기!
-			let idx = draft.list.findIndex((p) => p.postId === action.payload.postId);
-			// draft.list[idx].is_like = action.payload.is_like;
-			if (action.payload.is_like) {
-				// draft.list[idx].likeNum = draft.list[idx].likeNum + 1;
-				draft.list[idx].is_like = true;
-			} else {
-				// draft.list[idx].likeNum = draft.list[idx].likeNum - 1;
-				draft.list[idx].is_like = false;
-			}
-			// draft.list[idx].is_like = action.payload.is_like;
+			let idx = draft.list.findIndex((p) => p.postId === action.payload.post_id);
+			draft.list[idx].likeState = action.payload.likeState.likeState;
 		}),
+<<<<<<< HEAD
 
 <<<<<<< HEAD
 =======
@@ -170,6 +206,8 @@ export default handleActions(
 			draft.likeNum = action.payload.likeNum;
 		})
 >>>>>>> 0044a47 (최신화 떄문에 커밋)
+=======
+>>>>>>> 929a251 (최신화 하려고 커밋함)
 	},
 	initialState
 );
@@ -177,7 +215,9 @@ export default handleActions(
 const postActions = {
 	getPostAPI, 
 	LikeToggleAPI,
-	likeNumAPI
+	// deleteToggleAPI,
+	// addLikeAPI
+
 }
 
 export { postActions };
