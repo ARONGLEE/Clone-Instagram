@@ -200,7 +200,7 @@ const Post = React.memo((props) => {
             {props.userId}
           </Text>
           <Text size="14px" margin="7px 0px">
-            {comment_list}
+            {comment_list.comment}
           </Text>
         </Div>
 

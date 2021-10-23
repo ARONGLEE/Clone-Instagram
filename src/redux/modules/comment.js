@@ -42,8 +42,9 @@ const getCommentDB = (postId) => {
         // }
 
         for (const i in res.data.result) {
-          //console.log(res.data.result[i].comment);
-          comment_list.unshift(res.data.result[i]);
+          console.log(res.data.result);
+          console.log(i.comment);
+          comment_list.unshift(i);
           //console.log(comment_list);
           // dispatch(setComment());
         }

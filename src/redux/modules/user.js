@@ -78,10 +78,11 @@ const loginCheckDB = () => {
   return function (dispatch, getState, { history }) {
     const tokenCheck = localStorage.getItem("token");
     console.log(tokenCheck);
-    if (tokenCheck !== "undefined" || tokenCheck !== null) {
+    if (tokenCheck) {
       dispatch(setLogin({ id: tokenCheck }));
     } else {
       dispatch(logOutDB());
+      history.replace("/login");
     }
   };
 };
