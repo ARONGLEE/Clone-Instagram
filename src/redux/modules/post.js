@@ -40,7 +40,7 @@ const getPostAPI = () => {
     apis
       .getPost(getPost())
       .then((res) => {
-        //console.log(res.data);
+        console.log(res.data);
         const post_list = res.data.result;
         const post_like = res.data.likes;
         dispatch(getPost(post_list, post_like));
