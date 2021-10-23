@@ -8,16 +8,16 @@
 - link : https://www.instagram.com/
 - 선택 이유 파일업로드와 좋아요 기능을 구현해보는 것을 목적으로 삼고 스코프를 합리적으로 가져가기 위해 웹서비스를 탐색하던 중 웹버전 인스타그램이 적합하다고 판단함
 
-### 구현기능
+## 프로젝트 기간
+2021/10/18 ~ 2021/10/22
+
+## 구현기능
 - 로그인(JWT 토큰), 회원가입 구현
 - 게시글 CRD 구현
 - 파일업로드 구현
 - 게시글 좋아요 기능 구현
 
-## 프로젝트 기간
-2021/10/18 ~ 2021/10/22
-
-## 1. Developers
+## Developers
 Backend (Node.js)  
 - 양주혁
 - 장재원
@@ -28,17 +28,17 @@ Frontend (React)
 - 조민갑 : 맡은페이지 CSS
 - 최진식 : 메인페이지 리스트 불러오기, 좋아요기능, 댓글 작성기능, 맡은페이지 CSS
 
-## 2. API, DB 설계
+## API, DB 설계
 https://docs.google.com/spreadsheets/d/1C2EIqLhK7BeodXyVxayOFfIX0kb5Aue_fLQQk4xZhFM/edit?usp=sharing
 
-## 3. 기술스택
+## 기술스택
 종류 | 이름 
 :---:|---
 개발언어 | JavaScript 
 프레임워크 | React 
 
 
-## 4. 적용 라이브러리
+## 적용 라이브러리
 종류 | 설명 
 :---:|---
 axios | 비동기 통신 
